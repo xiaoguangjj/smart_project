@@ -1,7 +1,7 @@
 import led
-
 from led import led
-led()
+
+led(10)
 
 	
 

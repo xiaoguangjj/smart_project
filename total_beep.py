@@ -1,5 +1,6 @@
 import buzzer
 from buzzer import buzz
-buzz()
+
+buzz(5)
 
 

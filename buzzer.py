@@ -3,7 +3,6 @@
 import RPi.GPIO as GPIO
 import time
 
-
 def buzz():
 	buzztime = 5
 	GPIO_PIN = 23;

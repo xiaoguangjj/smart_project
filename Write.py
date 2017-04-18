@@ -7,6 +7,7 @@ import signal
 import pymongo
 import sys
 from pymongo import MongoClient
+
 client = MongoClient('0.0.0.0',27017)
 db_name = 'RFID_card'
 db = client[db_name]
@@ -75,7 +76,7 @@ while continue_reading:
 	    print str.encode('utf-8')
 	    print len(l.get('num',0))
 	    for i in range(0,len(l.get('num',0))):
-		#data.append(ord(l.get('num',0)[i]))
+	       	#data.append(ord(l.get('num',0)[i]))
 		data.append(l.get('num',0)[i].encode('utf-8'))
 		print l.get('num',0)[i].encode('utf-8')
             print "--Now we fill it with 0x00:"

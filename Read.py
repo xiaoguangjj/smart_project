@@ -58,8 +58,8 @@ while continue_reading:
             data = MIFAREReader.MFRC522_Read(8)
 	    print 'The data after change:'
 	    for i in range(0,16):
-   	    	#da.append(chr(data[i]))
-		da.append(data[i].decode('utf-8'))
+   	        #da.append(chr(data[i]))
+	        da.append(data[i].decode('utf-8'))
 		print data[i].decode('utf-8')
 	    print da
             MIFAREReader.MFRC522_StopCrypto1()

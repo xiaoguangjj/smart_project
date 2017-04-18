@@ -1,5 +1,12 @@
 #!/usr/bin/env python
 # -*- coding: utf8 -*-
+''' 
+    Write.py
+    ~~~~~~~~~~~~~~~~
+    Rfid write ic module.
+    :copyright: (c) 2017 by jxg.
+'''
+
 
 import RPi.GPIO as GPIO
 import MFRC522

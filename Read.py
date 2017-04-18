@@ -1,8 +1,16 @@
 #!/usr/bin/env python
 # -*- coding: utf8 -*-
+'''
+    Read.py
+    ~~~~~~~~~~~~~~~~
+    Rfid read ic module.
+    :copyright: (c) 2017 by jxg.
+'''
 
 import RPi.GPIO as GPIO
+
 import MFRC522
+
 import signal
 
 continue_reading = True

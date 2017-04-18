@@ -1,4 +1,10 @@
 #!/user/bin/python
+'''
+    buzzer.py
+    ~~~~~~~~~~~~~~~~
+    buzzer warning  module.
+    :copyright: (c) 2017 by jxg.
+'''
 
 import RPi.GPIO as GPIO
 import time

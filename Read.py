@@ -16,8 +16,7 @@ import signal
 continue_reading = True
 
 # Capture SIGINT for cleanup when the script is aborted
-def end_read(signal,frame):
-    global continue_reading
+def end_read(signal,frame,continue_reading):
     print "Ctrl+C captured, ending read."
     continue_reading = False
     GPIO.cleanup()
@@ -34,18 +33,18 @@ print "Press Ctrl-C to stop."
 
 # This loop keeps checking for chips. If one is near it will get the UID and authenticate
 
-def Rfid_read(): 
+def rfid_read(continue_reading=True):
     while continue_reading:
     
         # Scan for cards    
-        (status,TagType) = MIFAREReader.MFRC522_Request(MIFAREReader.PICC_REQIDL)
+        status,TagType = MIFAREReader.MFRC522_Request(MIFAREReader.PICC_REQIDL)
 
         # If a card is found
         if status == MIFAREReader.MI_OK:
             print "Card detected"
     
         # Get the UID of the card
-        (status,uid) = MIFAREReader.MFRC522_Anticoll()
+        status,uid = MIFAREReader.MFRC522_Anticoll()
 
         # If we have the UID, continue
         if status == MIFAREReader.MI_OK:
@@ -68,14 +67,14 @@ def Rfid_read():
                     data = MIFAREReader.MFRC522_Read(8)
                 except IOError:
                     print 'Can not find card or your card is damaged.'
-                except exception as e:
+                except Exception as e:
                     print 'Exception :',e
-	        print 'The data after change:'
-	        for i in range(0,16):
-   	            #da.append(chr(data[i]))
-	            da.append(data[i].decode('utf-8'))
-		    print data[i].decode('utf-8')
-	        print da
+                print 'The data after change:'
+                for i in range(16):
+                #da.append(chr(data[i]))
+	                da.append(data[i].decode('utf-8'))
+                    print data[i].decode('utf-8')
+                print da
                 MIFAREReader.MFRC522_StopCrypto1()
             else:
                 print "Authentication error"

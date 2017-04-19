@@ -37,20 +37,50 @@ signal.signal(signal.SIGINT, end_read)
 MIFAREReader = MFRC522.MFRC522()
 
 # This loop keeps checking for chips. If one is near it will get the UID and authenticate
+def deal_data(set_data,data):
+    if len(set_data) == 16:
+        try:
+            data = set_data
+        except AttributeError as e:
+            print 'Exception:',e
+    elif len(set_data) < 16:
+        for i in range(0,(16 - len(set_data))):
+            set_data.append(0x00)
+        return 'please input 16 bits data.'
+    else:
+        for i in range(16):
+            data.append(set_data[i])
+        return 'please input 16 bits data.'
+    print "Now we fill it with 0x00:"
 
+    try:
+        MIFAREReader.MFRC522_Write(8, data)
+    except IOError:
+        print 'Can not find your card or your card is damaged.'
+    except Exception as e:
+        print 'Exception :',e
+
+    print "It is now empty:"
+                    # Check to see if it was written
+    try:
+        MIFAREReader.MFRC522_Read(8)
+    except IOError:
+        print 'Can not find your card or your card is damaged'
+    except Exception as e:
+        print 'Exception :',e
  
-def Rfid_write(set_data):
+def rfid_write(set_data,continue_reading=True):
     while continue_reading:
     
         # Scan for cards    
-        (status,TagType) = MIFAREReader.MFRC522_Request(MIFAREReader.PICC_REQIDL)
+        status,TagType = MIFAREReader.MFRC522_Request(MIFAREReader.PICC_REQIDL)
 
         # If a card is found
         if status == MIFAREReader.MI_OK:
             print "Card detected"
     
         # Get the UID of the card
-        (status,uid) = MIFAREReader.MFRC522_Anticoll()
+        status,uid = MIFAREReader.MFRC522_Anticoll()
 
        # If we have the UID, continue
         if status == MIFAREReader.MI_OK:
@@ -66,60 +96,29 @@ def Rfid_write(set_data):
 
             # Authenticate
             status = MIFAREReader.MFRC522_Auth(MIFAREReader.PICC_AUTHENT1A, 8, key, uid)
-            print "\n"
 
             # Check if authenticated
             if status == MIFAREReader.MI_OK:
 
-	        '''
                 data = []
-	        te = []
-                # Fill the data with 0x00
-	    
-	        l = db.collection_card_num.find_one({'name':'card'},{'num':1,'_id':0})
-	        str = l.get('num',0)
-	        #print str.encode('utf-8')
-	        #print len(l.get('num',0))
-	        for i in range(0,len(l.get('num',0))):
-	       	    #data.append(ord(l.get('num',0)[i]))
-		    data.append(l.get('num',0)[i].encode('utf-8'))
-		    print l.get('num',0)[i].encode('utf-8')'''
-                if len(set_data) == 16:
-		    try:
-		        data = set_data
-		    except AttributeError as e:
-                        print 'Exception:',e 
-		elif len(set_data) < 16:
-		    for i in range(0,(16 - len(set_data))):
-		        set_data.append(0x00)
-		    return 'please input 16 bits data.'
-		else:
-		    for i in range(0,16): 
-		        data.append(set_data[i])
-		    return 'please input 16 bits data.'
-                print "Now we fill it with 0x00:"
+	        # te = []
+            #    # Fill the data with 0x00
+            #
+	        # l = db.collection_card_num.find_one({'name':'card'},{'num':1,'_id':0})
+	        # str = l.get('num',0)
+	        # #print str.encode('utf-8')
+	        # #print len(l.get('num',0))
+	        # for i in range(0,len(l.get('num',0))):
+	       	#     #data.append(ord(l.get('num',0)[i]))
+		    #    data.append(l.get('num',0)[i].encode('utf-8'))
+		    #    print l.get('num',0)[i].encode('utf-8')
 
-                try:
-		    MIFAREReader.MFRC522_Write(8, data)
-                except IOError:
-                    print 'Can not find your card or your card is damaged.'
-		except Exception as e:
-		    print 'Exception :',e		
-
-                print "It is now empty:"
-                # Check to see if it was written
-		try:
-                    MIFAREReader.MFRC522_Read(8)
-                except IOError:
-                    print 'Can not find your card or your card is damaged'
-		except Exception as e:
-                    print 'Exception :',e
-
+                deal_data(set_data,data)
                 # Stop
                 MIFAREReader.MFRC522_StopCrypto1()
 
                 # Make sure to stop reading for cards
                 '''continue_reading = False'''
-	        continue_reading = True
+                continue_reading = True
             else:
                 print "Authentication error"

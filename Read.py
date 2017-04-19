@@ -33,8 +33,8 @@ print "Press Ctrl-C to stop."
 
 # This loop keeps checking for chips. If one is near it will get the UID and authenticate
 
-def rfid_read(continue_reading=True):
-    while continue_reading:
+def rfid_read(start_reading):
+    while start_reading:
     
         # Scan for cards    
         status,TagType = MIFAREReader.MFRC522_Request(MIFAREReader.PICC_REQIDL)
@@ -78,4 +78,5 @@ def rfid_read(continue_reading=True):
                 MIFAREReader.MFRC522_StopCrypto1()
             else:
                 print "Authentication error"
+        start_reading = False
 

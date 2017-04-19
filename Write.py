@@ -69,8 +69,8 @@ def deal_data(set_data,data):
     except Exception as e:
         print 'Exception :',e
  
-def rfid_write(set_data,continue_reading=True):
-    while continue_reading:
+def rfid_write(set_data,start_reading):
+    while start_reading:
     
         # Scan for cards    
         status,TagType = MIFAREReader.MFRC522_Request(MIFAREReader.PICC_REQIDL)
@@ -118,7 +118,7 @@ def rfid_write(set_data,continue_reading=True):
                 MIFAREReader.MFRC522_StopCrypto1()
 
                 # Make sure to stop reading for cards
-                '''continue_reading = False'''
-                continue_reading = True
+                '''start_reading = False'''
+                start_reading = True
             else:
                 print "Authentication error"

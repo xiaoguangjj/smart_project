@@ -1,5 +1,6 @@
 import read
 from read import rfid_read
 
-rfid_read(True)
+a = True
+rfid_read(a)
 

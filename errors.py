@@ -87,11 +87,24 @@ class ErrorScanCardFailed(RfidError):
     message = 'scan card failed.'
 
 
-class ErrorVerifyCodeErr(RfidError):
+class ErrorChangeDataErr(RfidError):
     """
     转换数据格式失败
     """
     code = 40108
     code_name = 'Change_Data_Failed'
     message = 'change data failed.'
-
+class ErrorEvaluteErr(RfidError):
+    """
+    赋值数据失败
+    """
+    code = 40109
+    code_name = 'Evalute_Data_Err'
+    message = 'evalute data Err.'
+class ErrorAuthenticationErr(RfidError):
+    """
+    赋值数据失败
+    """
+    code = 40110
+    code_name = 'Authentication_Err'
+    message = 'Authentication Err.'

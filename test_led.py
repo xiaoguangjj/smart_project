@@ -1,7 +1,8 @@
 import led
 from led import led
 
-led(10)
+time = 10
+led(time)
 
 	
 

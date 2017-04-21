@@ -1,5 +1,5 @@
-import Write
-from Write import rfid_write
+import write
+from write import rfid_write
 
 
 

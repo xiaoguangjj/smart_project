@@ -12,6 +12,8 @@ import MFRC522
 import signal
 import pymongo
 import sys
+import errors
+
 from pymongo import MongoClient
 reload(sys)
 sys.setdefaultencoding('utf-8')
@@ -46,7 +48,7 @@ def deal_data(set_data,data):
     elif len(set_data) < 16:
         for i in range(0,(16 - len(set_data))):
             set_data.append(0x00)
-        return 'please input 16 bits data.'
+        result = errors.ErrorDataShort().code
     else:
         for i in range(16):
             data.append(set_data[i])

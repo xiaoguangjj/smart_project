@@ -13,6 +13,8 @@ import MFRC522
 
 import signal
 
+import errors
+
 continue_reading = True
 
 # Capture SIGINT for cleanup when the script is aborted
@@ -67,16 +69,20 @@ def rfid_read(start_reading):
                     data = MIFAREReader.MFRC522_Read(8)
                 except IOError:
                     print 'Can not find card or your card is damaged.'
+                    result = errors.ErrorReadNotFind().code
                 except Exception as e:
                     print 'Exception :',e
+                    result = errors.ErrorReadFailedUnknow().code
                 print 'The data after change:'
                 for i in range(16):
                 #da.append(chr(data[i]))
-	                da.append(data[i].decode('utf-8'))
+                    da.append(data[i].decode('utf-8'))
                     print data[i].decode('utf-8')
                 print da
                 MIFAREReader.MFRC522_StopCrypto1()
             else:
                 print "Authentication error"
+                result = errors.ErrorAuthenticationErr().code
         start_reading = False
+        return  result
 

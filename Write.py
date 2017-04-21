@@ -52,24 +52,27 @@ def deal_data(set_data,data):
     else:
         for i in range(16):
             data.append(set_data[i])
-        return 'please input 16 bits data.'
+        result = errors.ErrorDataLong().code
     print "Now we fill it with 0x00:"
 
     try:
         MIFAREReader.MFRC522_Write(8, data)
     except IOError:
         print 'Can not find your card or your card is damaged.'
+        result = errors.ErrorWriteNotFind().code
     except Exception as e:
         print 'Exception :',e
-
+        result = errors.ErrorWriteFailedUnkown().code
     print "It is now empty:"
                     # Check to see if it was written
     try:
         MIFAREReader.MFRC522_Read(8)
     except IOError:
         print 'Can not find your card or your card is damaged'
+        result = errors.ErrorReadNotFind().code
     except Exception as e:
         print 'Exception :',e
+        result = errors.ErrorReadFailedUnknow().code
  
 def rfid_write(set_data,start_reading):
     while start_reading:
@@ -115,7 +118,7 @@ def rfid_write(set_data,start_reading):
 		    #    data.append(l.get('num',0)[i].encode('utf-8'))
 		    #    print l.get('num',0)[i].encode('utf-8')
 
-                deal_data(set_data,data)
+                result = deal_data(set_data,data)
                 # Stop
                 MIFAREReader.MFRC522_StopCrypto1()
 
@@ -124,3 +127,5 @@ def rfid_write(set_data,start_reading):
 
             else:
                 print "Authentication error"
+                result = errors.ErrorAuthenticationErr().code
+    return result

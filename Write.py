@@ -78,7 +78,7 @@ def rfid_write(set_data,start_reading):
         # If a card is found
         if status == MIFAREReader.MI_OK:
             print "Card detected"
-    
+
         # Get the UID of the card
         status,uid = MIFAREReader.MFRC522_Anticoll()
 
@@ -87,7 +87,7 @@ def rfid_write(set_data,start_reading):
 
             # Print UID
             print "Card read UID: "+str(uid[0])+","+str(uid[1])+","+str(uid[2])+","+str(uid[3])
-    
+
             # This is the default key for authentication
             key = [0xFF,0xFF,0xFF,0xFF,0xFF,0xFF]
         
@@ -118,7 +118,7 @@ def rfid_write(set_data,start_reading):
                 MIFAREReader.MFRC522_StopCrypto1()
 
                 # Make sure to stop reading for cards
-                '''start_reading = False'''
-                start_reading = True
+                start_reading = False
+
             else:
                 print "Authentication error"

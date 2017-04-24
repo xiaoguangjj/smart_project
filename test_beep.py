@@ -1,6 +1,7 @@
 import buzzer
 from buzzer import buzz
 
-buzz(5)
+time = 5
+buzz(time)
 
 

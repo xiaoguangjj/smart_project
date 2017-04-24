@@ -69,10 +69,10 @@ def rfid_read(start_reading):
                     data = MIFAREReader.MFRC522_Read(8)
                 except IOError:
                     print 'Can not find card or your card is damaged.'
-                    result = errors.ErrorReadNotFind().code
+                    result = errors.ErrorReadNotFind()
                 except Exception as e:
                     print 'Exception :',e
-                    result = errors.ErrorReadFailedUnknow().code
+                    result = errors.ErrorReadFailedUnknow()
                 print 'The data after change:'
                 for i in range(16):
                 #da.append(chr(data[i]))
@@ -82,7 +82,7 @@ def rfid_read(start_reading):
                 MIFAREReader.MFRC522_StopCrypto1()
             else:
                 print "Authentication error"
-                result = errors.ErrorAuthenticationErr().code
+                result = errors.ErrorAuthenticationErr()
         start_reading = False
         return  result
 

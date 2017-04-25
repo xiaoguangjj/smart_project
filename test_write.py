@@ -3,10 +3,23 @@ import errors
 
 from write import rfid_write
 
+val = 1
 
-set_data = [1 for i in range(16)]
+if val == 1:
+    set_data = [1 for i in range(16)]
+elif val == 2:
+    set_data = ['c','i','t','y','i','o','_',0,0,1,'-',0,0,0,0,1]    #测试数据为字符
+elif val == 3:
+    set_data = ['趣','活','科','技','仓','库',0,0,0,0,0,0,0,0,0,0]
+elif val == 4:
+    set_data = [1 for i in range(17)]   #测试数据长度超过16
+elif val == 5:
+    set_data = [1 for i in range(15)]   #测试数据长度少于15
+
+
 a = True
 result =  rfid_write(set_data,a)    #执行写入读卡器操作，看返回结果
+
 '''
 def errdatashort():
     return errors.ErrorDataShort().code_name

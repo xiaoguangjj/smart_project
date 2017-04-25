@@ -40,18 +40,23 @@ MIFAREReader = MFRC522.MFRC522()
 
 # This loop keeps checking for chips. If one is near it will get the UID and authenticate
 def deal_data(set_data,data):
+
+
     if len(set_data) == 16:
         try:
-            data = set_data
+            for i in range(16):
+                data.append(set_data.get('num',0)[i].encode('utf-8'))
         except AttributeError as e:
             print 'Exception:',e
     elif len(set_data) < 16:
+        for i in range(len(set_data)):
+            data.append(set_data.get('num',0)[i].encode('utf-8'))
         for i in range(0,(16 - len(set_data))):
-            set_data.append(0x00)
+            data.append(0x00)
         result = errors.ErrorDataShort()
     else:
         for i in range(16):
-            data.append(set_data[i])
+            data.append(set_data.get('num',0)[i].encode('utf-8'))
         result = errors.ErrorDataLong()
     print "Now we fill it with 0x00:"
 

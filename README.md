@@ -31,7 +31,7 @@ Import the class by importing MFRC522 in the top of your script. For more info s
 
 
 LED灯
-==============
+==============；／
 
 #功能说明
 一个灯的接口函数，实现了，调用改函数，就可以控制灯的“开”与“关”。

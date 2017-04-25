@@ -1,4 +1,5 @@
 
+
 class RfidError(Exception):
     code = 0
     code_name = 'Rfid Runtime Error'
@@ -31,7 +32,7 @@ class ErrorDataShort(RfidError):
     """
     code = 40101
     code_name = 'Data_Too_Short'
-
+    message = 'data to short.'
 
 class ErrorDataLong(RfidError):
     """

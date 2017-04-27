@@ -95,6 +95,8 @@ class ErrorChangeDataErr(RfidError):
     code = 40108
     code_name = 'Change_Data_Failed'
     message = 'change data failed.'
+
+
 class ErrorEvaluteErr(RfidError):
     """
     赋值数据失败
@@ -102,6 +104,8 @@ class ErrorEvaluteErr(RfidError):
     code = 40109
     code_name = 'Evalute_Data_Err'
     message = 'evalute data Err.'
+
+
 class ErrorAuthenticationErr(RfidError):
     """
     赋值数据失败
@@ -109,3 +113,12 @@ class ErrorAuthenticationErr(RfidError):
     code = 40110
     code_name = 'Authentication_Err'
     message = 'Authentication Err.'
+
+
+class ErrorzhcnErr(RfidError):
+    """
+    返回值为中文
+    """
+    code = 40111
+    code_name = 'zh-cn_Err'
+    message = 'zh-cn Err.'

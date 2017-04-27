@@ -13,8 +13,10 @@ import signal
 import pymongo
 import sys
 import errors
+import re
 
 from pymongo import MongoClient
+
 reload(sys)
 sys.setdefaultencoding('utf-8')
 
@@ -38,13 +40,22 @@ signal.signal(signal.SIGINT, end_read)
 # Create an object of the class MFRC522
 MIFAREReader = MFRC522.MFRC522()
 
+
 # This loop keeps checking for chips. If one is near it will get the UID and authenticate
 def deal_data(set_data,data):
 
+    zhPattern = re.compile(u'[\u4e00-\u9fa5]+')
+    match = zhPattern.search(set_data)
+
+    if match:
+        print u'有中文: %s'% (match.group(0),)
+        return errors.ErrorzhcnErr().code
+    else:
+        print u'没有包含中文'
 
     if len(set_data) == 16:
         try:
-            for i in range(16):s
+            for i in range(16):
                 data.append(set_data.get('num',0)[i].encode('utf-8'))
         except AttributeError as e:
             print 'Exception:',e
@@ -78,7 +89,9 @@ def deal_data(set_data,data):
     except Exception as e:
         print 'Exception :',e
         result = errors.ErrorReadFailedUnknow()
- 
+    return result
+
+
 def rfid_write(set_data,start_reading):
     while start_reading:
     

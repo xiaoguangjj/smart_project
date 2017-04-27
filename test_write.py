@@ -10,9 +10,9 @@ if val == 1:
 elif val == 2:
     set_data = ['c','i','t','y','i','o','_',0,0,1,'-',0,0,0,0,1]    #测试数据为字符
 elif val == 3:
-    set_data = ['趣','活','科','技','仓','库',0,0,0,0,0,0,0,0,0,0]
+    set_data = u'趣活科技货物'
 elif val == 4:
-    set_data = [1 for i in range(17)]   #测试数据长度超过16
+    set_data = '5875d4dc2bf1d0ac79e05fb8'   #测试数据长度超过16
 elif val == 5:
     set_data = [1 for i in range(15)]   #测试数据长度少于15
 

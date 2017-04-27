@@ -1,4 +1,4 @@
-
+#encoding:utf-8
 
 class RfidError(Exception):
     code = 0

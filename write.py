@@ -1,11 +1,6 @@
-<<<<<<< HEAD
 #!/usr/bin/env python
-# -*- coding: utf8 -*-
-
-=======
 #encoding:utf-8
->>>>>>> 26d67ed5e10f7d3491eb224f796c6adf345fa0e3
-''' 
+'''
     Write.py
     ~~~~~~~~~~~~~~~~
     Rfid write ic module.
@@ -54,12 +49,8 @@ def deal_data(set_data,data):
 
     if match:
         print u'有中文: %s'% (match.group(0),)
-<<<<<<< HEAD
         print ord(match.group(0))
-        return errors.ErrorzhcnErr().code
-=======
         return errors.ErrorzhcnErr()
->>>>>>> 26d67ed5e10f7d3491eb224f796c6adf345fa0e3
     else:
         print u'没有包含中文'
 

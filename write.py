@@ -1,6 +1,10 @@
+<<<<<<< HEAD
 #!/usr/bin/env python
 # -*- coding: utf8 -*-
 
+=======
+#encoding:utf-8
+>>>>>>> 26d67ed5e10f7d3491eb224f796c6adf345fa0e3
 ''' 
     Write.py
     ~~~~~~~~~~~~~~~~
@@ -50,8 +54,12 @@ def deal_data(set_data,data):
 
     if match:
         print u'有中文: %s'% (match.group(0),)
+<<<<<<< HEAD
         print ord(match.group(0))
         return errors.ErrorzhcnErr().code
+=======
+        return errors.ErrorzhcnErr()
+>>>>>>> 26d67ed5e10f7d3491eb224f796c6adf345fa0e3
     else:
         print u'没有包含中文'
 
@@ -95,6 +103,7 @@ def deal_data(set_data,data):
 
 
 def rfid_write(set_data,start_reading):
+	#result = 1
     while start_reading:
     
         # Scan for cards    
@@ -125,7 +134,7 @@ def rfid_write(set_data,start_reading):
             # Check if authenticated
             if status == MIFAREReader.MI_OK:
 
-                data = []
+            	data = []
 	        # te = []
             #    # Fill the data with 0x00
             #
@@ -138,7 +147,7 @@ def rfid_write(set_data,start_reading):
 		    #    data.append(l.get('num',0)[i].encode('utf-8'))
 		    #    print l.get('num',0)[i].encode('utf-8')
 
-                result = deal_data(set_data,data)
+            	result = deal_data(set_data,data)
                 # Stop
                 MIFAREReader.MFRC522_StopCrypto1()
 

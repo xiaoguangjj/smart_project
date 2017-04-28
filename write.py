@@ -1,5 +1,6 @@
 #!/usr/bin/env python
 # -*- coding: utf8 -*-
+
 ''' 
     Write.py
     ~~~~~~~~~~~~~~~~
@@ -49,6 +50,7 @@ def deal_data(set_data,data):
 
     if match:
         print u'有中文: %s'% (match.group(0),)
+        print ord(match.group(0))
         return errors.ErrorzhcnErr().code
     else:
         print u'没有包含中文'

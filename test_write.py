@@ -12,7 +12,7 @@ if val == 1:
 elif val == 2:
     set_data = ['c','i','t','y','i','o','_',0,0,1,'-',0,0,0,0,1]    
 elif val == 3:
-	set_data = u'趣活科技货物标签'
+	set_data = '趣活科技货1'
 elif val == 4:
     set_data = '5875d4dc2bf1d0ac79e05fb8'   #data for test is more long than 16 bits
 elif val == 5:

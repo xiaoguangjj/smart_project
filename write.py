@@ -51,7 +51,8 @@ def deal_data(set_data,data):
         print u'有中文: %s'% (match.group(0),)
         print ord(match.encode('utf-8'))
         for i in range(6):
-            data.append(set_data[i].encode('gb2312'))
+            #data.append(set_data[i].encode('gb2312'))
+            print list(set_data)[i].encode('gb2312')
         return errors.ErrorzhcnErr()
     else:
         print u'没有包含中文'
@@ -97,7 +98,7 @@ def deal_data(set_data,data):
 
 
 def rfid_write(set_data,start_reading):
-	#result = 1
+    #result = 1
     while start_reading:
     
         # Scan for cards    
@@ -128,8 +129,8 @@ def rfid_write(set_data,start_reading):
             # Check if authenticated
             if status == MIFAREReader.MI_OK:
 
-            	data = []
-	        # te = []
+                data = []
+            # te = []
             #    # Fill the data with 0x00
             #
 	        # l = db.collection_card_num.find_one({'name':'card'},{'num':1,'_id':0})

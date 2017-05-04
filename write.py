@@ -52,13 +52,13 @@ def deal_data(set_data,data):
         #print ord(match.encode('utf-8'))
         for i in range(len(set_data)):
             for j in set_data[i].encode('utf-8'):
-                print j
-            #data.append(set_data[i].encode('gb2312'))
-            print list(set_data)[i].encode('utf-8')
-        #return errors.ErrorzhcnErr()
+                print j,i,type(j)
+                data.append(ord(j))
+            #print list(set_data)[i].encode('utf-8')
+        result = errors.ErrorzhcnErr()
     else:
         print u'没有包含中文'
-    '''
+
     if len(set_data) == 16:
         try:
             for i in range(16):
@@ -68,16 +68,16 @@ def deal_data(set_data,data):
             print 'Exception:',e
     elif len(set_data) < 16:
         for i in range(len(set_data)):
-            data.append(set_data.get('num',0)[i].encode('utf-8'))
+            data.append(set_data[i].encode('utf-8'))
         for i in range(0,(16 - len(set_data))):
             data.append(0x00)
         result = errors.ErrorDataShort()
     else:
-        for i in range(16):
-            data.append(set_data.get('num',0)[i].encode('utf-8'))
+        for i in range(len(set_data)):
+            data.append(ord(set_data[i].encode('utf-8')))
         result = errors.ErrorDataLong()
     print "Now we fill it with 0x00:"
-    '''
+
     try:
         MIFAREReader.MFRC522_Write(8, data)
         print 'write'

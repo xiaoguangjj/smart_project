@@ -75,9 +75,9 @@ def rfid_read(start_reading):
                     result = errors.ErrorReadFailedUnknow()
                 print 'The data after change:'
                 for i in range(len(data)):
-                #da.append(chr(data[i]))
-                    da.append(data[i].decode('utf-8'))
-                    print data[i].decode('utf-8')
+                    da.append(chr(data[i]))
+                    #da.append(data[i].decode('utf-8'))
+                    #print data[i].decode('utf-8')
                 print da
                 MIFAREReader.MFRC522_StopCrypto1()
             else:

@@ -5,7 +5,7 @@ import errors
 
 from write import rfid_write
 
-val = 3
+val = 4
 
 if val == 1:
     set_data = [1 for i in range(16)]

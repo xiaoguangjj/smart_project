@@ -4,7 +4,6 @@
     <list default="true" id="d345a3d3-12d2-47ac-b706-b0685891b8e1" name="Default" comment="">
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/read.py" afterPath="$PROJECT_DIR$/read.py" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/test_read.py" afterPath="$PROJECT_DIR$/test_read.py" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/write.py" afterPath="$PROJECT_DIR$/write.py" />
     </list>
     <ignored path="smart_project.iws" />
     <ignored path=".idea/workspace.xml" />
@@ -29,30 +28,40 @@
         <entry file="file://$PROJECT_DIR$/errors.py">
           <provider selected="true" editor-type-id="text-editor">
             <state vertical-scroll-proportion="0.0">
-              <caret line="117" column="0" selection-start-line="117" selection-start-column="0" selection-end-line="117" selection-end-column="0" />
+              <caret line="58" column="16" selection-start-line="58" selection-start-column="16" selection-end-line="58" selection-end-column="16" />
               <folding />
             </state>
           </provider>
         </entry>
       </file>
-      <file leaf-file-name="read.py" pinned="false" current-in-tab="false">
+      <file leaf-file-name="read.py" pinned="false" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/read.py">
           <provider selected="true" editor-type-id="text-editor">
-            <state vertical-scroll-proportion="0.0">
-              <caret line="76" column="39" selection-start-line="76" selection-start-column="39" selection-end-line="76" selection-end-column="39" />
+            <state vertical-scroll-proportion="0.8739496">
+              <caret line="85" column="33" selection-start-line="85" selection-start-column="33" selection-end-line="85" selection-end-column="33" />
               <folding />
             </state>
           </provider>
         </entry>
       </file>
-      <file leaf-file-name="write.py" pinned="false" current-in-tab="true">
+      <file leaf-file-name="write.py" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/write.py">
           <provider selected="true" editor-type-id="text-editor">
-            <state vertical-scroll-proportion="0.31512606">
-              <caret line="23" column="21" selection-start-line="23" selection-start-column="21" selection-end-line="23" selection-end-column="21" />
+            <state vertical-scroll-proportion="0.0">
+              <caret line="81" column="29" selection-start-line="81" selection-start-column="29" selection-end-line="81" selection-end-column="29" />
               <folding>
                 <element signature="e#140#163#0" expanded="true" />
               </folding>
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file leaf-file-name="MFRC522.py" pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/MFRC522.py">
+          <provider selected="true" editor-type-id="text-editor">
+            <state vertical-scroll-proportion="-8.703704">
+              <caret line="276" column="12" selection-start-line="276" selection-start-column="12" selection-end-line="276" selection-end-column="12" />
+              <folding />
             </state>
           </provider>
         </entry>
@@ -111,28 +120,6 @@
           </provider>
         </entry>
       </file>
-      <file leaf-file-name="test_beep.py" pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/test_beep.py">
-          <provider selected="true" editor-type-id="text-editor">
-            <state vertical-scroll-proportion="0.0">
-              <caret line="3" column="8" selection-start-line="3" selection-start-column="8" selection-end-line="3" selection-end-column="8" />
-              <folding>
-                <element signature="e#0#13#0" expanded="true" />
-              </folding>
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file leaf-file-name="setup.py" pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/setup.py">
-          <provider selected="true" editor-type-id="text-editor">
-            <state vertical-scroll-proportion="0.0">
-              <caret line="9" column="0" selection-start-line="9" selection-start-column="0" selection-end-line="9" selection-end-column="0" />
-              <folding />
-            </state>
-          </provider>
-        </entry>
-      </file>
     </leaf>
   </component>
   <component name="Git.Settings">
@@ -156,9 +143,10 @@
         <option value="$PROJECT_DIR$/README.md" />
         <option value="$PROJECT_DIR$/errors.py" />
         <option value="$PROJECT_DIR$/test_write.py" />
+        <option value="$PROJECT_DIR$/write.py" />
+        <option value="$PROJECT_DIR$/MFRC522.py" />
         <option value="$PROJECT_DIR$/test_read.py" />
         <option value="$PROJECT_DIR$/read.py" />
-        <option value="$PROJECT_DIR$/write.py" />
       </list>
     </option>
   </component>
@@ -166,8 +154,8 @@
     <order />
   </component>
   <component name="ProjectFrameBounds">
-    <option name="x" value="145" />
-    <option name="y" value="25" />
+    <option name="x" value="97" />
+    <option name="y" value="103" />
     <option name="width" value="1778" />
     <option name="height" value="1049" />
   </component>
@@ -258,7 +246,7 @@
   <component name="PropertiesComponent">
     <property name="last_opened_file_path" value="$PROJECT_DIR$" />
     <property name="recentsLimit" value="5" />
-    <property name="SearchEverywhereHistoryKey" value="code&#9;null&#9;null" />
+    <property name="SearchEverywhereHistoryKey" value="MF&#9;null&#9;null&#10;M&#9;null&#9;null&#10;non-integer&#9;null&#9;null&#10;code&#9;null&#9;null" />
     <property name="FullScreen" value="false" />
   </component>
   <component name="RecentsManager">
@@ -448,7 +436,7 @@
     <servers />
   </component>
   <component name="ToolWindowManager">
-    <frame x="145" y="25" width="1778" height="1049" extended-state="0" />
+    <frame x="97" y="103" width="1778" height="1049" extended-state="0" />
     <editor active="true" />
     <layout>
       <window_info id="Terminal" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="7" side_tool="false" content_ui="tabs" />
@@ -495,14 +483,6 @@
     <watches-manager />
   </component>
   <component name="editorHistoryManager">
-    <entry file="file://$PROJECT_DIR$/errors.py">
-      <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="0.0">
-          <caret line="24" column="21" selection-start-line="24" selection-start-column="21" selection-end-line="24" selection-end-column="21" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/read.py">
       <provider selected="true" editor-type-id="text-editor">
         <state vertical-scroll-proportion="0.0">
@@ -773,13 +753,6 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/MFRC522.py">
-      <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="0.0">
-          <caret line="0" column="0" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/MANIFEST">
       <provider selected="true" editor-type-id="text-editor">
         <state vertical-scroll-proportion="0.0">
@@ -882,6 +855,40 @@
         </state>
       </provider>
     </entry>
+    <entry file="file://$PROJECT_DIR$/errors.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state vertical-scroll-proportion="0.0">
+          <caret line="58" column="16" selection-start-line="58" selection-start-column="16" selection-end-line="58" selection-end-column="16" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$USER_HOME$/Library/Caches/PyCharm40/python_stubs/-1856293957/__builtin__.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state vertical-scroll-proportion="0.3329832">
+          <caret line="3326" column="8" selection-start-line="3326" selection-start-column="8" selection-end-line="3326" selection-end-column="8" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/write.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state vertical-scroll-proportion="0.0">
+          <caret line="81" column="29" selection-start-line="81" selection-start-column="29" selection-end-line="81" selection-end-column="29" />
+          <folding>
+            <element signature="e#140#163#0" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/MFRC522.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state vertical-scroll-proportion="-8.703704">
+          <caret line="276" column="12" selection-start-line="276" selection-start-column="12" selection-end-line="276" selection-end-column="12" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
     <entry file="file://$PROJECT_DIR$/test_read.py">
       <provider selected="true" editor-type-id="text-editor">
         <state vertical-scroll-proportion="0.0">
@@ -892,27 +899,9 @@
     </entry>
     <entry file="file://$PROJECT_DIR$/read.py">
       <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="0.0">
-          <caret line="76" column="39" selection-start-line="76" selection-start-column="39" selection-end-line="76" selection-end-column="39" />
+        <state vertical-scroll-proportion="0.8739496">
+          <caret line="85" column="33" selection-start-line="85" selection-start-column="33" selection-end-line="85" selection-end-column="33" />
           <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/errors.py">
-      <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="0.0">
-          <caret line="117" column="0" selection-start-line="117" selection-start-column="0" selection-end-line="117" selection-end-column="0" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/write.py">
-      <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="0.31512606">
-          <caret line="23" column="21" selection-start-line="23" selection-start-column="21" selection-end-line="23" selection-end-column="21" />
-          <folding>
-            <element signature="e#140#163#0" expanded="true" />
-          </folding>
         </state>
       </provider>
     </entry>

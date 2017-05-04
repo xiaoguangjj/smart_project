@@ -7,7 +7,7 @@ import errors
 #import test_write
 
 
-result = rfid_read(True)   #执行读操作，看返回结果
+result = rfid_read(True)
 
 
 print '读射频卡结果：',result.code_name

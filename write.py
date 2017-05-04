@@ -49,16 +49,16 @@ def deal_data(set_data,data):
 
     if match:
         print u'有中文: %s'% (match.group(0),)
-        print ord(match.encode('utf-8'))
+        #print ord(match.encode('utf-8'))
         for i in range(len(set_data)):
             for j in set_data[i].encode('utf-8'):
                 print j
             #data.append(set_data[i].encode('gb2312'))
-            print list(set_data)[i].encode('gb2312')
-        return errors.ErrorzhcnErr()
+            print list(set_data)[i].encode('utf-8')
+        #return errors.ErrorzhcnErr()
     else:
         print u'没有包含中文'
-
+    '''
     if len(set_data) == 16:
         try:
             for i in range(16):
@@ -77,9 +77,10 @@ def deal_data(set_data,data):
             data.append(set_data.get('num',0)[i].encode('utf-8'))
         result = errors.ErrorDataLong()
     print "Now we fill it with 0x00:"
-
+    '''
     try:
         MIFAREReader.MFRC522_Write(8, data)
+        print 'write'
     except IOError:
         print 'Can not find your card or your card is damaged.'
         result = errors.ErrorWriteNotFind()
@@ -87,7 +88,7 @@ def deal_data(set_data,data):
         print 'Exception :',e
         result = errors.ErrorWriteFailedUnkown()
     print "It is now empty:"
-                    # Check to see if it was written
+        # Check to see if it was written
     try:
         MIFAREReader.MFRC522_Read(8)
     except IOError:

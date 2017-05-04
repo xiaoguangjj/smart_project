@@ -50,7 +50,9 @@ def deal_data(set_data,data):
     if match:
         print u'有中文: %s'% (match.group(0),)
         print ord(match.encode('utf-8'))
-        for i in range(6):
+        for i in range(len(set_data)):
+            for j in set_data[i].encode('utf-8'):
+                print j
             #data.append(set_data[i].encode('gb2312'))
             print list(set_data)[i].encode('gb2312')
         return errors.ErrorzhcnErr()

@@ -64,18 +64,19 @@ def main():
             ctime()
 
         threads = []
-        for i in nfuncs:
+    for i in nfuncs:
             t=MyThread(funcs[i],(n,),funcs[i].__name__)
             threads.append(t)
 
-        for i in nfuncs:
+    for i in nfuncs:
             threads[i].start()
 
-        for i in nfuncs:
+    for i in nfuncs:
             threads[i].join()
             print threads[i].getResult()
 
-        print 'all DONE'
+    print 'all DONE'
+
 if __name__=='__main__':
     main()
 

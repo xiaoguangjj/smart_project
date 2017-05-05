@@ -84,5 +84,5 @@ def rfid_read(start_reading):
                 print "Authentication error"
                 result = errors.ErrorAuthenticationErr()
             start_reading = False
-            return  result
+        return  result
 

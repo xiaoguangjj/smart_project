@@ -2,64 +2,82 @@
 
 import write
 import errors
-
+import threading
+from time import sleep,ctime
 from write import rfid_write
 
-val = 4
 
-if val == 1:
+class MyThread(threading.Thread):
+    def __init__(self,func,args,name=''):
+        threading.Thread.__init__(self)
+        self.name=name
+        self.func=func
+        self.args=args
+
+    def getResult(self):
+        return self.res
+
+    def run(self):
+        print 'starting',self.name,'at:',\
+            ctime()
+        self.res = apply(self.func,self.args)
+        print self.name,'finished at:',\
+            ctime()
+
+def test_interger():
     set_data = [1 for i in range(16)]
-elif val == 2:
-    set_data = ['c','i','t','y','i','o','_',0,0,1,'-',0,0,0,0,1]    
-elif val == 3:
-	#set_data = [u'趣',u'活',u'科',u'技',u'货',u'1']
+    result =  rfid_write(set_data,start_reading=True)
+    print "写入射频卡结果：%s " % result.code
+
+def test_character():
+    set_data = u'cityio_001-00001'
+    result =  rfid_write(set_data,start_reading=True)
+    print "写入射频卡结果：%s " % result.code
+
+def test_zhcn():
     set_data = u'趣活科技货1'
-elif val == 4:
-    set_data = '5875d4dc2bf1d0ac79e05fb8'   #data for test is more long than 16 bits
-elif val == 5:
-    set_data = [1 for i in range(15)]   #data for test is more short than 16 bits
+    result =  rfid_write(set_data,start_reading=True)
+    print "写入射频卡结果：%s " % result.code
+
+def test_cityid():
+    set_data = '5875d4dc2bf1d0ac79e05fb8'
+    result =  rfid_write(set_data,start_reading=True)
+    print "写入射频卡结果：%s " % result.code
+
+def test_shortdata():
+    set_data = [1 for i in range(15)]
+    result =  rfid_write(set_data,start_reading=True)
+    print "写入射频卡结果：%s " % result.code
 
 
-result =  rfid_write(set_data,start_reading=True)    
+funcs = [test_interger,test_character,test_zhcn,test_cityid,test_shortdata]
+n = 12
 
-'''
-def errdatashort():
-    return errors.ErrorDataShort().code_name
+def main():
+    nfuncs = range(len(funcs))
 
-def errdatalong():
-    return errors.ErrorDataLong().code_name
+    for i in nfuncs:
+        print 'starting',funcs[i].__name__,'at:',\
+            ctime()
+        print funcs[i](n)
+        print funcs[i].__name__,'finish at:',\
+            ctime()
 
-def errwritenotfind():
-    return errors.ErrorWriteNotFind().code_name
+        threads = []
+        for i in nfuncs:
+            t=MyThread(funcs[i],(n,),funcs[i].__name__)
+            threads.append(t)
 
-def errwritefailedunkown():
-    return errors.ErrorWriteFailedUnkown().code_name
+        for i in nfuncs:
+            threads[i].start()
 
-def errreadnotfind():
-    return errors.ErrorReadNotFind().code_name
+        for i in nfuncs:
+            threads[i].join()
+            print threads[i].getResult()
 
-def errreadfailedunknow():
-    return errors.ErrorReadFailedUnknow().code_name
-
-def errscancardfailed():
-    return errors.ErrorScanCardFailed().code_name
-
-def errchangedataerr():
-    return errors.ErrorChangeDataErr().code_name
-
-def errevaluteerr():
-    return errors.ErrorEvaluteErr().code_name
-
-def errAuthenticationErr():
-    return errors.ErrorAuthenticationErr().code_name
+        print 'all DONE'
 
 
-choice = {'40101':errdatashort,'40102':errdatalong,'40103':errwritenotfind,'40104':errwritefailedunkown,'40105':errreadnotfind,'40106':errreadfailedunknow,'40107':errscancardfailed,'40108':errchangedataerr,'40109':errevaluteerr,'40110':errAuthenticationErr}
 
 
-def find(num):
-    choice.get(num)()
-'''
-
-print "写入射频卡结果：%s " % result.code
 

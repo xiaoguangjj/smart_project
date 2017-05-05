@@ -36,6 +36,7 @@ print "Press Ctrl-C to stop."
 # This loop keeps checking for chips. If one is near it will get the UID and authenticate
 
 def rfid_read(start_reading):
+    global  result
     while start_reading:
     
         # Scan for cards    
@@ -90,5 +91,5 @@ def rfid_read(start_reading):
                 print "Authentication error"
                 result = errors.ErrorAuthenticationErr()
             start_reading = False
-        return  result
+    return  result
 

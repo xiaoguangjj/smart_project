@@ -18,11 +18,9 @@ class MyThread(threading.Thread):
         return self.res
 
     def run(self):
-        print 'starting',self.name,'at:',\
-            ctime()
+        print 'starting',self.name,'at:',ctime()
         self.res = apply(self.func,self.args)
-        print self.name,'finished at:',\
-            ctime()
+        print self.name,'finished at:',ctime()
 
 def test_interger():
     set_data = [1 for i in range(16)]
@@ -58,7 +56,7 @@ def main():
 
     threads = []
     for i in nfuncs:
-        t=MyThread(funcs[i],(n,),funcs[i].__name__)
+        t=MyThread(funcs[i],(),funcs[i].__name__)
         threads.append(t)
 
     for i in nfuncs:

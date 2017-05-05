@@ -62,13 +62,13 @@ def deal_data(set_data,data):
     if len(set_data) == 16:
         try:
             for i in range(16):
-                data.append(set_data.get('num',0)[i].encode('utf-8'))
-                data.append(set_data[i].encode('gb2312'))
+                data.append(ord(set_data[i].encode('utf-8')))
+                #data.append(set_data[i].encode('gb2312'))
         except AttributeError as e:
             print 'Exception:',e
     elif len(set_data) < 16:
         for i in range(len(set_data)):
-            data.append(set_data[i].encode('utf-8'))
+            data.append(ord(set_data[i].encode('utf-8')))
         for i in range(0,(16 - len(set_data))):
             data.append(0x00)
         result = errors.ErrorDataShort()

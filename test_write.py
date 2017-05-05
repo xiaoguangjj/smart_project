@@ -52,7 +52,7 @@ def test_shortdata():
     sleep(1)
     print "写入射频卡结果：%s " % result.code
 
-funcs = [test_interger,test_character,test_cityid,test_zhcn]
+funcs = [test_interger,test_character,test_cityid]
 
 def main():
     nfuncs = range(len(funcs))

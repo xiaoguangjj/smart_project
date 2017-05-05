@@ -58,6 +58,7 @@ def rfid_read(start_reading):
             # This is the default key for authentication
             key = [0xFF,0xFF,0xFF,0xFF,0xFF,0xFF]
             da = []
+            de = []
             # Select the scanned tag
             MIFAREReader.MFRC522_SelectTag(uid)
 
@@ -75,12 +76,13 @@ def rfid_read(start_reading):
                     print 'Exception :',e
                     result = errors.ErrorReadFailedUnknow()
                 print 'The data after change:'
-                if data in range(0,127):
+                asci = [i in range(127)]
+                if data.issuset(asci):
                     for i in range(len(data)):
-                        da.append(chr(data[i]))
+                        de.append(chr(data[i]))
                         #da.append(data[i].decode('utf-8'))
                         #print data[i].decode('utf-8')
-                    print da
+                    print de
                 else:
                     for i in range(len(data)-1):
                         da.append(chr(data[i]+data[i+1]))

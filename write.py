@@ -155,4 +155,4 @@ def rfid_write(set_data,start_reading):
             else:
                 print "Authentication error"
                 result = errors.ErrorAuthenticationErr()
-    return result
+    #return result

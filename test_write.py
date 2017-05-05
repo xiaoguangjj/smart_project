@@ -14,8 +14,8 @@ class MyThread(threading.Thread):
         self.func=func
         self.args=args
 
-    def getResult(self):
-        return self.res
+    #def getResult(self):
+    #    return self.res
 
     def run(self):
         print 'starting',self.name,'at:',ctime()
@@ -25,34 +25,30 @@ class MyThread(threading.Thread):
 def test_interger():
     set_data = [1 for i in range(16)]
     result =  rfid_write(set_data,start_reading=True)
-    sleep(1)
     print "写入射频卡结果：%s " % result.code
 
 def test_character():
     set_data = u'cityio_001-00001'
     result =  rfid_write(set_data,start_reading=True)
-    sleep(1)
     print "写入射频卡结果：%s " % result.code
 
 def test_zhcn():
     set_data = u'趣活科技货1'
     result =  rfid_write(set_data,start_reading=True)
-    sleep(1)
     print "写入射频卡结果：%s " % result.code
 
 def test_cityid():
     set_data = '5875d4dc2bf1d0ac79e05fb8'
     result =  rfid_write(set_data,start_reading=True)
-    sleep(1)
     print "写入射频卡结果：%s " % result.code
 
 def test_shortdata():
     set_data = [1 for i in range(15)]
     result =  rfid_write(set_data,start_reading=True)
-    sleep(1)
     print "写入射频卡结果：%s " % result.code
 
-funcs = [test_interger,test_character,test_cityid]
+funcs = [test_zhcn]
+
 
 def main():
     nfuncs = range(len(funcs))

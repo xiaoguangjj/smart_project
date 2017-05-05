@@ -76,8 +76,9 @@ def rfid_read(start_reading):
                     print 'Exception :',e
                     result = errors.ErrorReadFailedUnknow()
                 print 'The data after change:'
-                asci = [i in range(127)]
-                if data.issuset(asci):
+                asci = set([i for i in range(127)])
+                ddata = set(data)
+                if ddata.issubset(asci):
                     for i in range(len(data)):
                         de.append(chr(data[i]))
                         #da.append(data[i].decode('utf-8'))
@@ -93,5 +94,5 @@ def rfid_read(start_reading):
                 print "Authentication error"
                 result = errors.ErrorAuthenticationErr()
             start_reading = False
-    return  result
+    #return  result
 

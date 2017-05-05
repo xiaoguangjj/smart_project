@@ -85,9 +85,10 @@ def rfid_read(start_reading):
                         #print data[i].decode('utf-8')
                     print de
                 else:
-                    for i in range(len(data)-2):
-                        da.append((chr(data[i])+chr(data[i+1])+chr(data[i+2])).decode('utf-8'))
-
+                    for i in range(len(data)):
+                            if 1%3==0:
+                                da.append((chr(data[i])+chr(data[i+1])+chr(data[i+2])).decode('utf-8'))
+                                print chr(data[i])+chr(data[i+1])+chr(data[i+2])
                     print da
                 MIFAREReader.MFRC522_StopCrypto1()
             else:

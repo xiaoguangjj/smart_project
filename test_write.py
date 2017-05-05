@@ -76,7 +76,8 @@ def main():
             print threads[i].getResult()
 
         print 'all DONE'
-
+if __name__=='__main__':
+    main()
 
 
 

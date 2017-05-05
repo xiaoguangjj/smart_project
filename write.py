@@ -76,17 +76,18 @@ def deal_data(set_data,data):
             for i in range(len(set_data)):
                 data.append(ord(set_data[i].encode('utf-8')))
             result = errors.ErrorDataLong()
-        print "Now we fill it with 0x00:"
+    print "Now we fill it with 0x00:"
 
-        try:
-            MIFAREReader.MFRC522_Write(8, data)
-            print 'write'
-        except IOError:
-            print 'Can not find your card or your card is damaged.'
-            result = errors.ErrorWriteNotFind()
-        except Exception as e:
-            print 'Exception :',e
-            result = errors.ErrorWriteFailedUnkown()
+    try:
+        MIFAREReader.MFRC522_Write(8, data)
+        print 'write'
+    except IOError:
+        print 'Can not find your card or your card is damaged.'
+        result = errors.ErrorWriteNotFind()
+    except Exception as e:
+        print 'Exception :',e
+        result = errors.ErrorWriteFailedUnkown()
+
     print "It is now empty:"
         # Check to see if it was written
     try:

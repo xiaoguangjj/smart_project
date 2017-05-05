@@ -63,7 +63,7 @@ def main():
 
     for i in nfuncs:
         threads[i].join()
-        print threads[i].getResult()
+        #print threads[i].getResult()
 
     print 'all DONE'
 

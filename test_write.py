@@ -56,24 +56,17 @@ n = 12
 def main():
     nfuncs = range(len(funcs))
 
+    threads = []
     for i in nfuncs:
-        print 'starting',funcs[i].__name__,'at:',\
-            ctime()
-        print funcs[i](n)
-        print funcs[i].__name__,'finish at:',\
-            ctime()
-
-        threads = []
-    for i in nfuncs:
-            t=MyThread(funcs[i],(n,),funcs[i].__name__)
-            threads.append(t)
+        t=MyThread(funcs[i],(n,),funcs[i].__name__)
+        threads.append(t)
 
     for i in nfuncs:
-            threads[i].start()
+        threads[i].start()
 
     for i in nfuncs:
-            threads[i].join()
-            print threads[i].getResult()
+        threads[i].join()
+        print threads[i].getResult()
 
     print 'all DONE'
 

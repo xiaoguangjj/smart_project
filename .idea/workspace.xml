@@ -3,6 +3,7 @@
   <component name="ChangeListManager">
     <list default="true" id="d345a3d3-12d2-47ac-b706-b0685891b8e1" name="Default" comment="">
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/test_write.py" afterPath="$PROJECT_DIR$/test_write.py" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/.idea/workspace.xml" afterPath="$PROJECT_DIR$/.idea/workspace.xml" />
     </list>
     <ignored path="smart_project.iws" />
     <ignored path=".idea/workspace.xml" />
@@ -78,8 +79,8 @@
       <file leaf-file-name="test_write.py" pinned="false" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/test_write.py">
           <provider selected="true" editor-type-id="text-editor">
-            <state vertical-scroll-proportion="0.47268906">
-              <caret line="30" column="0" selection-start-line="30" selection-start-column="0" selection-end-line="30" selection-end-column="0" />
+            <state vertical-scroll-proportion="0.5430672">
+              <caret line="55" column="0" selection-start-line="55" selection-start-column="0" selection-end-line="55" selection-end-column="0" />
               <folding>
                 <element signature="e#17#29#0" expanded="true" />
               </folding>
@@ -886,8 +887,8 @@
     </entry>
     <entry file="file://$PROJECT_DIR$/test_write.py">
       <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="0.47268906">
-          <caret line="30" column="0" selection-start-line="30" selection-start-column="0" selection-end-line="30" selection-end-column="0" />
+        <state vertical-scroll-proportion="0.5430672">
+          <caret line="55" column="0" selection-start-line="55" selection-start-column="0" selection-end-line="55" selection-end-column="0" />
           <folding>
             <element signature="e#17#29#0" expanded="true" />
           </folding>

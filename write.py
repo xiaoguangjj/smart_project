@@ -188,8 +188,10 @@ def rfid_write(set_data,start_reading):
 	       	#     #data.append(ord(l.get('num',0)[i]))
 		    #    data.append(l.get('num',0)[i].encode('utf-8'))
 		    #    print l.get('num',0)[i].encode('utf-8')
-                if isinstance(set_data,str) or isinstance(set_data,list):
+                if isinstance(set_data,str):
             	    result = deal_data(set_data,data)
+                elif isinstance(set_data,list):
+                    result = deal_data2(set_data,data)
                 else:
                     result = errors.ErrorparamErr
                 # Stop

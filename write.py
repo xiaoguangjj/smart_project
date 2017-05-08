@@ -27,6 +27,35 @@ collection_card_num = db['card_num']
 
 continue_reading = True
 
+class WriteCard(object):
+    def __init__(self,name,data):
+        self.name = name
+        self.data = data
+
+    def func(self):
+        try:
+            MIFAREReader.MFRC522_Write(8, self.data)
+            print 'write'
+        except IOError:
+            print 'Can not find your card or your card is damaged.'
+            result = errors.ErrorWriteNotFind()
+        except Exception as e:
+            print 'Exception :',e
+            result = errors.ErrorWriteFailedUnkown()
+
+        print "It is now empty:"
+            # Check to see if it was written
+        try:
+            MIFAREReader.MFRC522_Read(8)
+        except IOError:
+            print 'Can not find your card or your card is damaged'
+            result = errors.ErrorReadNotFind()
+        except Exception as e:
+            print 'Exception :',e
+            result = errors.ErrorReadFailedUnknow()
+        return result
+
+
 # Capture SIGINT for cleanup when the script is aborted
 def end_read(signal,frame):
     global continue_reading
@@ -77,27 +106,7 @@ def deal_data(set_data,data):
             result = errors.ErrorDataLong()
     print "Now we fill it with 0x00:"
 
-    try:
-        MIFAREReader.MFRC522_Write(8, data)
-        print 'write'
-    except IOError:
-        print 'Can not find your card or your card is damaged.'
-        result = errors.ErrorWriteNotFind()
-    except Exception as e:
-        print 'Exception :',e
-        result = errors.ErrorWriteFailedUnkown()
-
-    print "It is now empty:"
-        # Check to see if it was written
-    try:
-        MIFAREReader.MFRC522_Read(8)
-    except IOError:
-        print 'Can not find your card or your card is damaged'
-        result = errors.ErrorReadNotFind()
-    except Exception as e:
-        print 'Exception :',e
-        result = errors.ErrorReadFailedUnknow()
-    return result
+    WriteCard(data).func()
 
 def deal_data2(set_data,data):
     if len(set_data) == 16:
@@ -121,27 +130,7 @@ def deal_data2(set_data,data):
         result = errors.ErrorDataLong()
     print "Now we fill it with 0x00:"
 
-    try:
-        MIFAREReader.MFRC522_Write(8, data)
-        print 'write'
-    except IOError:
-        print 'Can not find your card or your card is damaged.'
-        result = errors.ErrorWriteNotFind()
-    except Exception as e:
-        print 'Exception :',e
-        result = errors.ErrorWriteFailedUnkown()
-
-    print "It is now empty:"
-        # Check to see if it was written
-    try:
-        MIFAREReader.MFRC522_Read(8)
-    except IOError:
-        print 'Can not find your card or your card is damaged'
-        result = errors.ErrorReadNotFind()
-    except Exception as e:
-        print 'Exception :',e
-        result = errors.ErrorReadFailedUnknow()
-    return result
+    WriteCard(data).func()
 
 
 def rfid_write(set_data,start_reading):

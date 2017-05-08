@@ -62,8 +62,10 @@ def deal_data(set_data,data):
         if len(set_data) == 16:
             try:
                 for i in range(16):
-                    data.append(ord(set_data[i].encode('utf-8')))
-                    #data.append(set_data[i].encode('gb2312'))
+                    if isinstance(set_data,str):
+                        data.append(ord(set_data[i].encode('utf-8')))
+                    else:
+                        data.append(ord(set_data[i]))
             except AttributeError as e:
                 print 'Exception:',e
         elif len(set_data) < 16:
@@ -145,8 +147,10 @@ def rfid_write(set_data,start_reading):
 	       	#     #data.append(ord(l.get('num',0)[i]))
 		    #    data.append(l.get('num',0)[i].encode('utf-8'))
 		    #    print l.get('num',0)[i].encode('utf-8')
-
-            	result = deal_data(set_data,data)
+                if isinstance(set_data,str) or isinstance(set_data,list):
+            	    result = deal_data(set_data,data)
+                else:
+                    result = errors.ErrorparamErr
                 # Stop
                 MIFAREReader.MFRC522_StopCrypto1()
 

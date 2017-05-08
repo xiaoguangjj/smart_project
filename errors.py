@@ -122,3 +122,11 @@ class ErrorzhcnErr(RfidError):
     code = 40111
     code_name = 'zh-cn_Err'
     message = 'zh-cn Err.'
+
+class ErrorparamErr(RfidError):
+    """
+    返回值为中文
+    """
+    code = 40112
+    code_name = 'ParamError'
+    message = 'ParamError.'

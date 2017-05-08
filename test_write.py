@@ -23,7 +23,7 @@ class MyThread(threading.Thread):
         print self.name,'finished at:',ctime()
 
 def test_interger():
-    set_data = [1 for i in range(16)]
+    set_data = [1234567890123456]
     result =  rfid_write(set_data,True)
     print "The result of write into the card：%s " % result.code
 
@@ -43,7 +43,7 @@ def test_cityid():
     print "The result of write into the card：%s " % result.code
 
 def test_shortdata():
-    set_data = [1 for i in range(15)]
+    set_data = [123456789]
     result =  rfid_write(set_data,True)
     print "The result of write into the card：%s " % result.code
 

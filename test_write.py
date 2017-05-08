@@ -24,28 +24,28 @@ class MyThread(threading.Thread):
 
 def test_interger():
     set_data = [1 for i in range(16)]
-    result =  rfid_write(set_data,start_reading=True)
-    print "写入射频卡结果：%s " % result.code
+    result =  rfid_write(set_data,True)
+    print "The result of write into the card：%s " % result.code
 
 def test_character():
     set_data = u'cityio_001-00001'
-    result =  rfid_write(set_data,start_reading=True)
-    print "写入射频卡结果：%s " % result.code
+    result =  rfid_write(set_data,True)
+    print "The result of write into the card：%s " % result.code
 
 def test_zhcn():
     set_data = u'趣活科技货1'
-    result =  rfid_write(set_data,start_reading=True)
-    print "写入射频卡结果：%s " % result.code
+    result =  rfid_write(set_data,True)
+    print "The result of write into the card：%s " % result.code
 
 def test_cityid():
     set_data = '5875d4dc2bf1d0ac79e05fb8'
-    result =  rfid_write(set_data,start_reading=True)
-    print "写入射频卡结果：%s " % result.code
+    result =  rfid_write(set_data,True)
+    print "The result of write into the card：%s " % result.code
 
 def test_shortdata():
     set_data = [1 for i in range(15)]
-    result =  rfid_write(set_data,start_reading=True)
-    print "写入射频卡结果：%s " % result.code
+    result =  rfid_write(set_data,True)
+    print "The result of write into the card：%s " % result.code
 
 funcs = [test_zhcn,test_interger,test_shortdata,test_cityid]
 

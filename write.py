@@ -62,10 +62,7 @@ def deal_data(set_data,data):
         if len(set_data) == 16:
             try:
                 for i in range(16):
-                    if isinstance(set_data,str):
                         data.append(ord(set_data[i].encode('utf-8')))
-                    else:
-                        data.append(ord(set_data[i]))
             except AttributeError as e:
                 print 'Exception:',e
         elif len(set_data) < 16:
@@ -78,6 +75,50 @@ def deal_data(set_data,data):
             for i in range(len(set_data)):
                 data.append(ord(set_data[i].encode('utf-8')))
             result = errors.ErrorDataLong()
+    print "Now we fill it with 0x00:"
+
+    try:
+        MIFAREReader.MFRC522_Write(8, data)
+        print 'write'
+    except IOError:
+        print 'Can not find your card or your card is damaged.'
+        result = errors.ErrorWriteNotFind()
+    except Exception as e:
+        print 'Exception :',e
+        result = errors.ErrorWriteFailedUnkown()
+
+    print "It is now empty:"
+        # Check to see if it was written
+    try:
+        MIFAREReader.MFRC522_Read(8)
+    except IOError:
+        print 'Can not find your card or your card is damaged'
+        result = errors.ErrorReadNotFind()
+    except Exception as e:
+        print 'Exception :',e
+        result = errors.ErrorReadFailedUnknow()
+    return result
+
+def deal_data2(set_data,data):
+    if len(set_data) == 16:
+        try:
+            for i in range(16):
+                if isinstance(set_data,list):
+                    data.append(ord(set_data[i]))
+                else:
+                    result = errors.ErrorparamErr
+        except AttributeError as e:
+            print 'Exception:',e
+    elif len(set_data) < 16:
+        for i in range(len(set_data)):
+            data.append(ord(set_data[i].encode('utf-8')))
+        for i in range(0,(16 - len(set_data))):
+            data.append(0)
+        result = errors.ErrorDataShort()
+    else:
+        for i in range(len(set_data)):
+            data.append(ord(set_data[i].encode('utf-8')))
+        result = errors.ErrorDataLong()
     print "Now we fill it with 0x00:"
 
     try:

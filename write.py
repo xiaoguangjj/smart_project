@@ -28,8 +28,7 @@ collection_card_num = db['card_num']
 continue_reading = True
 
 class WriteCard(object):
-    def __init__(self,name,data):
-        self.name = name
+    def __init__(self,data):
         self.data = data
 
     def func(self):

@@ -47,7 +47,7 @@ def test_shortdata():
     result =  rfid_write(set_data,start_reading=True)
     print "写入射频卡结果：%s " % result.code
 
-funcs = [test_zhcn]
+funcs = [test_zhcn,test_interger,test_shortdata,test_cityid]
 
 
 def main():
@@ -69,7 +69,7 @@ def main():
 
 if __name__=='__main__':
     main()
-    test_zhcn()
+    #test_zhcn()
 
 
 

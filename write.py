@@ -62,7 +62,7 @@ def deal_data(set_data,data):
         if len(set_data) == 16:
             try:
                 for i in range(16):
-                        data.append(ord(set_data[i].encode('utf-8')))
+                    data.append(ord(set_data[i].encode('utf-8')))
             except AttributeError as e:
                 print 'Exception:',e
         elif len(set_data) < 16:
@@ -103,10 +103,10 @@ def deal_data2(set_data,data):
     if len(set_data) == 16:
         try:
             for i in range(16):
-                if isinstance(set_data,list):
-                    data.append(ord(set_data[i]))
+                if isinstance(set_data[i],int):
+                    data.append(set_data[i])
                 else:
-                    result = errors.ErrorparamErr
+                    data.append(ord(set_data[i].encode('utf-8')))
         except AttributeError as e:
             print 'Exception:',e
     elif len(set_data) < 16:
@@ -175,7 +175,6 @@ def rfid_write(set_data,start_reading):
 
             # Check if authenticated
             if status == MIFAREReader.MI_OK:
-
                 data = []
             # te = []
             #    # Fill the data with 0x00

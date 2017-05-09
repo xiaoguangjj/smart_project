@@ -29,12 +29,17 @@ continue_reading = True
 
 class WriteCard(object):
     '写卡功能'
-    def __init__(self,data):
+    def __init__(self,data,data2,i):
         self.data = data
-
+        self.data2 = data2
+        self.i = 8
     def func(self):
         try:
-            MIFAREReader.MFRC522_Write(8, self.data)
+            if self.data:
+                MIFAREReader.MFRC522_Write(self.i, self.data)
+            if self.data2:
+                self.i+=4
+                MIFAREReader.MFRC522_Write(self.i, self.data2)
             print 'write'
         except IOError:
             print 'Can not find your card or your card is damaged.'
@@ -46,7 +51,8 @@ class WriteCard(object):
         print "It is now empty:"
             # Check to see if it was written
         try:
-            MIFAREReader.MFRC522_Read(8)
+            for i in range((self.i-8)/4):
+                MIFAREReader.MFRC522_Read(8+i*4)
         except IOError:
             print 'Can not find your card or your card is damaged'
             result = errors.ErrorReadNotFind()
@@ -72,7 +78,7 @@ MIFAREReader = MFRC522.MFRC522()
 
 # This loop keeps checking for chips. If one is near it will get the UID and authenticate
 def deal_data(set_data,data):
-
+    data2 = []
     zhPattern = re.compile(u'[\u4e00-\u9fa5]+')
     match = zhPattern.search(set_data)
 
@@ -97,18 +103,28 @@ def deal_data(set_data,data):
         elif len(set_data) < 16:
             for i in range(len(set_data)):
                 data.append(ord(set_data[i].encode('utf-8')))
-            for i in range(0,(16 - len(set_data))):
-                data.append(0x00)
             result = errors.ErrorDataShort()
         else:
-            for i in range(len(set_data)):
+            for i in range(16):
                 data.append(ord(set_data[i].encode('utf-8')))
+            if len(set_data)<24:
+                for i in range(17,(24 - len(set_data))):
+                    data2.append(ord(set_data[i].encode('utf-8')))
+                for i in range(len(set_data),24):
+                    data2.append(0)
+            elif len(set_data)==24:
+                for i in range(17,24):
+                    data2.append(ord(set_data[i].encode('utf-8')))
+            else:
+                pass
             result = errors.ErrorDataLong()
     print "Now we fill it with 0x00:"
 
-    WriteCard(data).func()
+    result = WriteCard(data).func()
+    return  result
 
 def deal_data2(set_data,data):
+    data2 = []
     if len(set_data) == 16:
         try:
             for i in range(16):
@@ -121,17 +137,25 @@ def deal_data2(set_data,data):
     elif len(set_data) < 16:
         for i in range(len(set_data)):
             data.append(ord(set_data[i].encode('utf-8')))
-        for i in range(0,(16 - len(set_data))):
-            data.append(0)
         result = errors.ErrorDataShort()
     else:
-        for i in range(len(set_data)):
+        for i in range(16):
             data.append(ord(set_data[i].encode('utf-8')))
+        if len(set_data)<24:
+            for i in range(17,(24 - len(set_data))):
+                data2.append(ord(set_data[i].encode('utf-8')))
+            for i in range(len(set_data),24):
+                data2.append(0)
+        elif len(set_data)==24:
+            for i in range(17,24):
+                data2.append(ord(set_data[i].encode('utf-8')))
+        else:
+            pass
         result = errors.ErrorDataLong()
     print "Now we fill it with 0x00:"
 
-    WriteCard(data).func()
-
+    result = WriteCard(data).func()
+    return  result
 
 def rfid_write(set_data,start_reading):
     #result = 1

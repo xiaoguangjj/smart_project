@@ -27,6 +27,11 @@ def test_interger():
     result =  rfid_write(set_data,True)
     print "The result of write into the card：%s " % result.code
 
+def test_int_ch():
+    set_data = ['a','b','c','d',1,2,3,4,5,6,7,8,9,0,'a','b']
+    result =  rfid_write(set_data,True)
+    print "The result of write into the card：%s " % result.code
+
 def test_character():
     set_data = u'cityio_001-00001'
     result =  rfid_write(set_data,True)

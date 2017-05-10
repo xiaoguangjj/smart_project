@@ -109,6 +109,7 @@ def deal_data(set_data,data):
             try:
                 for i in range(16):
                     data.append(ord(set_data[i].encode('utf-8')))
+                print data
             except AttributeError as e:
                 print 'Exception:',e
             try:
@@ -117,6 +118,7 @@ def deal_data(set_data,data):
                         data2.append(ord(set_data[i].encode('utf-8')))
                     for i in range(len(set_data),32):
                         data2.append(0)
+                    print data2
                 elif len(set_data)==32:
                     for i in range(17,32):
                         data2.append(ord(set_data[i].encode('utf-8')))

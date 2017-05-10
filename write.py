@@ -107,13 +107,13 @@ def deal_data(set_data,data):
         else:
             for i in range(16):
                 data.append(ord(set_data[i].encode('utf-8')))
-            if len(set_data)<24:
-                for i in range(17,(24 - len(set_data))):
+            if len(set_data)<32:
+                for i in range(17,(32 - len(set_data))):
                     data2.append(ord(set_data[i].encode('utf-8')))
-                for i in range(len(set_data),24):
+                for i in range(len(set_data),32):
                     data2.append(0)
-            elif len(set_data)==24:
-                for i in range(17,24):
+            elif len(set_data)==32:
+                for i in range(17,32):
                     data2.append(ord(set_data[i].encode('utf-8')))
             else:
                 pass
@@ -141,13 +141,13 @@ def deal_data2(set_data,data):
     else:
         for i in range(16):
             data.append(ord(set_data[i].encode('utf-8')))
-        if len(set_data)<24:
-            for i in range(17,(24 - len(set_data))):
+        if len(set_data)<32:
+            for i in range(17,(32 - len(set_data))):
                 data2.append(ord(set_data[i].encode('utf-8')))
-            for i in range(len(set_data),24):
+            for i in range(len(set_data),32):
                 data2.append(0)
-        elif len(set_data)==24:
-            for i in range(17,24):
+        elif len(set_data)==32:
+            for i in range(17,32):
                 data2.append(ord(set_data[i].encode('utf-8')))
         else:
             pass

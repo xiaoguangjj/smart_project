@@ -138,7 +138,7 @@ def deal_data(set_data,data):
     for t in threads:
         t.setDaemon(True)
         t.start()
-        
+
     return  result
 
 def deal_data2(set_data,data):

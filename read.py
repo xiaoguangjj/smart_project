@@ -14,6 +14,7 @@ import MFRC522
 import signal
 
 import errors
+import threading
 
 continue_reading = True
 
@@ -34,6 +35,75 @@ print "Welcome to the MFRC522 data read example"
 print "Press Ctrl-C to stop."
 
 # This loop keeps checking for chips. If one is near it will get the UID and authenticate
+
+def read1(u1,key,uid):
+    status = MIFAREReader.MFRC522_Auth(MIFAREReader.PICC_AUTHENT1A, 8, key, uid)
+    de = []
+    # Check if authenticated
+    if status == MIFAREReader.MI_OK:
+        try:
+            data = MIFAREReader.MFRC522_Read(8)
+        except IOError:
+            print 'Can not find card or your card is damaged.'
+            result = errors.ErrorReadNotFind()
+        except Exception as e:
+            print 'Exception :',e
+            result = errors.ErrorReadFailedUnknow()
+        print 'The data after change:'
+        asci = set([i for i in range(127)])
+        ddata = set(data)
+        if ddata.issubset(asci):
+            for i in range(len(data)):
+                de.append(chr(data[i]))
+                #da.append(data[i].decode('utf-8'))
+                #print data[i].decode('utf-8')
+            print de
+        else:
+            for i in range(len(data)-2):
+                if i%3==0:
+                    #da.append((chr(data[i])+chr(data[i+1])+chr(data[i+2])).decode('utf-8'))
+                    print (chr(data[i])+chr(data[i+1])+chr(data[i+2])).decode('utf-8')
+                #print da
+        MIFAREReader.MFRC522_StopCrypto1()
+    else:
+        print "Authentication error"
+        result = errors.ErrorAuthenticationErr()
+
+
+
+def read2(u2,key,uid):
+    status = MIFAREReader.MFRC522_Auth(MIFAREReader.PICC_AUTHENT1A, 12, key, uid)
+    de = []
+    # Check if authenticated
+    if status == MIFAREReader.MI_OK:
+        try:
+            data = MIFAREReader.MFRC522_Read(12)
+        except IOError:
+            print 'Can not find card or your card is damaged.'
+            result = errors.ErrorReadNotFind()
+        except Exception as e:
+            print 'Exception :',e
+            result = errors.ErrorReadFailedUnknow()
+        print 'The data after change:'
+        asci = set([i for i in range(127)])
+        ddata = set(data)
+        if ddata.issubset(asci):
+            for i in range(len(data)):
+                de.append(chr(data[i]))
+                #da.append(data[i].decode('utf-8'))
+                #print data[i].decode('utf-8')
+            print de
+        else:
+            for i in range(len(data)-2):
+                if i%3==0:
+                    #da.append((chr(data[i])+chr(data[i+1])+chr(data[i+2])).decode('utf-8'))
+                    print (chr(data[i])+chr(data[i+1])+chr(data[i+2])).decode('utf-8')
+                #print da
+        MIFAREReader.MFRC522_StopCrypto1()
+    else:
+        print "Authentication error"
+        result = errors.ErrorAuthenticationErr()
+
 
 def rfid_read(start_reading):
     global  result
@@ -63,37 +133,20 @@ def rfid_read(start_reading):
             MIFAREReader.MFRC522_SelectTag(uid)
 
             # Authenticate
-            status = MIFAREReader.MFRC522_Auth(MIFAREReader.PICC_AUTHENT1A, 8, key, uid)
+            #status = MIFAREReader.MFRC522_Auth(MIFAREReader.PICC_AUTHENT1A, 8, key, uid)
+            status = read1(MIFAREReader.PICC_AUTHENT1A,key,uid)
 
-            # Check if authenticated
-            if status == MIFAREReader.MI_OK:
-                try:
-                    data = MIFAREReader.MFRC522_Read(8)
-                except IOError:
-                    print 'Can not find card or your card is damaged.'
-                    result = errors.ErrorReadNotFind()
-                except Exception as e:
-                    print 'Exception :',e
-                    result = errors.ErrorReadFailedUnknow()
-                print 'The data after change:'
-                asci = set([i for i in range(127)])
-                ddata = set(data)
-                if ddata.issubset(asci):
-                    for i in range(len(data)):
-                        de.append(chr(data[i]))
-                        #da.append(data[i].decode('utf-8'))
-                        #print data[i].decode('utf-8')
-                    print de
-                else:
-                    for i in range(len(data)-2):
-                        if i%3==0:
-                            #da.append((chr(data[i])+chr(data[i+1])+chr(data[i+2])).decode('utf-8'))
-                            print (chr(data[i])+chr(data[i+1])+chr(data[i+2])).decode('utf-8')
-                        #print da
-                MIFAREReader.MFRC522_StopCrypto1()
-            else:
-                print "Authentication error"
-                result = errors.ErrorAuthenticationErr()
+            threads = []
+            t1 = threading.Thread(target=read1(),args=(MIFAREReader.PICC_AUTHENT1A,key,uid))
+            threads.append(t1)
+            t2 = threading.Thread(target=read2(),args=(MIFAREReader.PICC_AUTHENT1B,key,uid))
+            threads.append(t2)
+
+            for t in threads:
+                t.setDaemon(True)
+                t.start()
+
+            
             start_reading = False
     #return  result
 

@@ -36,10 +36,9 @@ class WriteCard(object):
     def func(self):
         try:
             if self.data:
-                MIFAREReader.MFRC522_Write(self.i, self.data)
+                MIFAREReader.MFRC522_Write(8, self.data)
             if self.data2:
-                self.i+=4
-                MIFAREReader.MFRC522_Write(self.i, self.data2)
+                MIFAREReader.MFRC522_Write(12, self.data2)
             print 'write'
         except IOError:
             print 'Can not find your card or your card is damaged.'
@@ -51,8 +50,11 @@ class WriteCard(object):
         print "It is now empty:"
             # Check to see if it was written
         try:
-            for i in range((self.i-8)/4):
-                MIFAREReader.MFRC522_Read(8+i*4)
+            #for i in range((self.i-8)/4):
+            if self.data:
+                MIFAREReader.MFRC522_Read(8)
+            if self.data2:
+                MIFAREReader.MFRC522_Read(12)
         except IOError:
             print 'Can not find your card or your card is damaged'
             result = errors.ErrorReadNotFind()

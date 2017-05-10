@@ -14,6 +14,7 @@ import pymongo
 import sys
 import errors
 import re
+import threading
 
 from pymongo import MongoClient
 
@@ -36,8 +37,6 @@ class WriteCard(object):
         try:
             if self.data:
                 MIFAREReader.MFRC522_Write(8, self.data)
-            if self.data2:
-                MIFAREReader.MFRC522_Write(12, self.data2)
             print 'write'
         except IOError:
             print 'Can not find your card or your card is damaged.'
@@ -52,8 +51,6 @@ class WriteCard(object):
             #for i in range((self.i-8)/4):
             if self.data:
                 MIFAREReader.MFRC522_Read(8)
-            if self.data2:
-                MIFAREReader.MFRC522_Read(12)
         except IOError:
             print 'Can not find your card or your card is damaged'
             result = errors.ErrorReadNotFind()
@@ -61,7 +58,9 @@ class WriteCard(object):
             print 'Exception :',e
             result = errors.ErrorReadFailedUnknow()
         return result
-
+    def func2(self):
+                MIFAREReader.MFRC522_Write(12, self.data2)
+                MIFAREReader.MFRC522_Read(12)
 
 # Capture SIGINT for cleanup when the script is aborted
 def end_read(signal,frame):
@@ -130,6 +129,16 @@ def deal_data(set_data,data):
     print "Now we fill it with 0x00:"
 
     result = WriteCard(data,data2).func()
+    threads = []
+    t1 = threading.Thread(target=WriteCard().func(),args=(data,data2))
+    threads.append(t1)
+    t2 = threading.Thread(target=WriteCard().func2(),args=(data,data2))
+    threads.append(t2)
+
+    for t in threads:
+        t.setDaemon(True)
+        t.start()
+        
     return  result
 
 def deal_data2(set_data,data):

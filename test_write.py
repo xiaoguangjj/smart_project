@@ -73,8 +73,8 @@ def main():
     print 'all DONE'
 
 if __name__=='__main__':
-    main()
+    #main()
     #test_zhcn()
-
+    test_cityid()
 
 

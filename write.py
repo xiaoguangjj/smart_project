@@ -109,8 +109,8 @@ def deal_data(set_data,data):
         else:
             for i in range(16):
                 data.append(ord(set_data[i].encode('utf-8')))
-            if len(set_data)<32:
-                for i in range(17,(32 - len(set_data))):
+            if 16<len(set_data)<32:
+                for i in range(17,len(set_data)):
                     data2.append(ord(set_data[i].encode('utf-8')))
                 for i in range(len(set_data),32):
                     data2.append(0)
@@ -187,9 +187,9 @@ def rfid_write(set_data,start_reading):
 
             # Authenticate
             status = MIFAREReader.MFRC522_Auth(MIFAREReader.PICC_AUTHENT1A, 8, key, uid)
-
+            status2 = MIFAREReader.MFRC522_Auth(MIFAREReader.PICC_AUTHENT1A, 12, key, uid)
             # Check if authenticated
-            if status == MIFAREReader.MI_OK:
+            if status == MIFAREReader.MI_OK or status2 == MIFAREReader.MI_OK:
                 data = []
             # te = []
             #    # Fill the data with 0x00

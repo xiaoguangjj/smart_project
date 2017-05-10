@@ -3,6 +3,7 @@
   <component name="ChangeListManager">
     <list default="true" id="d345a3d3-12d2-47ac-b706-b0685891b8e1" name="Default" comment="">
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/read.py" afterPath="$PROJECT_DIR$/read.py" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/.idea/workspace.xml" afterPath="$PROJECT_DIR$/.idea/workspace.xml" />
     </list>
     <ignored path="smart_project.iws" />
     <ignored path=".idea/workspace.xml" />
@@ -33,11 +34,11 @@
           </provider>
         </entry>
       </file>
-      <file leaf-file-name="read.py" pinned="false" current-in-tab="true">
+      <file leaf-file-name="read.py" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/read.py">
           <provider selected="true" editor-type-id="text-editor">
-            <state vertical-scroll-proportion="0.73214287">
-              <caret line="193" column="37" selection-start-line="193" selection-start-column="37" selection-end-line="193" selection-end-column="37" />
+            <state vertical-scroll-proportion="0.0">
+              <caret line="129" column="45" selection-start-line="129" selection-start-column="45" selection-end-line="129" selection-end-column="45" />
               <folding>
                 <element signature="e#145#168#0" expanded="true" />
               </folding>
@@ -57,11 +58,11 @@
           </provider>
         </entry>
       </file>
-      <file leaf-file-name="MFRC522.py" pinned="false" current-in-tab="false">
+      <file leaf-file-name="MFRC522.py" pinned="false" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/MFRC522.py">
           <provider selected="true" editor-type-id="text-editor">
-            <state vertical-scroll-proportion="0.0">
-              <caret line="355" column="0" selection-start-line="355" selection-start-column="0" selection-end-line="355" selection-end-column="0" />
+            <state vertical-scroll-proportion="0.6617647">
+              <caret line="45" column="23" selection-start-line="45" selection-start-column="23" selection-end-line="45" selection-end-column="23" />
               <folding />
             </state>
           </provider>
@@ -155,9 +156,9 @@
         <option value="$PROJECT_DIR$/test_read.py" />
         <option value="$PROJECT_DIR$/errors.py" />
         <option value="$PROJECT_DIR$/test_write.py" />
-        <option value="$PROJECT_DIR$/MFRC522.py" />
         <option value="$PROJECT_DIR$/write.py" />
         <option value="$PROJECT_DIR$/read.py" />
+        <option value="$PROJECT_DIR$/MFRC522.py" />
       </list>
     </option>
   </component>
@@ -851,14 +852,6 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/MFRC522.py">
-      <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="0.0">
-          <caret line="355" column="0" selection-start-line="355" selection-start-column="0" selection-end-line="355" selection-end-column="0" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/test_write.py">
       <provider selected="true" editor-type-id="text-editor">
         <state vertical-scroll-proportion="0.0">
@@ -887,11 +880,19 @@
     </entry>
     <entry file="file://$PROJECT_DIR$/read.py">
       <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="0.73214287">
-          <caret line="193" column="37" selection-start-line="193" selection-start-column="37" selection-end-line="193" selection-end-column="37" />
+        <state vertical-scroll-proportion="0.0">
+          <caret line="129" column="45" selection-start-line="129" selection-start-column="45" selection-end-line="129" selection-end-column="45" />
           <folding>
             <element signature="e#145#168#0" expanded="true" />
           </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/MFRC522.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state vertical-scroll-proportion="0.6617647">
+          <caret line="45" column="23" selection-start-line="45" selection-start-column="23" selection-end-line="45" selection-end-column="23" />
+          <folding />
         </state>
       </provider>
     </entry>

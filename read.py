@@ -64,7 +64,6 @@ def read1(u1,key,uid):
             # Select the scanned tag
             MIFAREReader.MFRC522_SelectTag(uid)
             status = MIFAREReader.MFRC522_Auth(MIFAREReader.PICC_AUTHENT1A, 8, key, uid)
-            de = []
             # Check if authenticated
             if status == MIFAREReader.MI_OK:
                 try:
@@ -125,7 +124,6 @@ def read2(u2,key,uid):
             # Select the scanned tag
             MIFAREReader.MFRC522_SelectTag(uid)
             status = MIFAREReader.MFRC522_Auth(MIFAREReader.PICC_AUTHENT1A, 12, key, uid)
-            de = []
             # Check if authenticated
             if status == MIFAREReader.MI_OK:
                 try:

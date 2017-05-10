@@ -2,6 +2,7 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="d345a3d3-12d2-47ac-b706-b0685891b8e1" name="Default" comment="">
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/MFRC522.py" afterPath="$PROJECT_DIR$/MFRC522.py" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/write.py" afterPath="$PROJECT_DIR$/write.py" />
     </list>
     <ignored path="smart_project.iws" />
@@ -43,14 +44,24 @@
           </provider>
         </entry>
       </file>
-      <file leaf-file-name="write.py" pinned="false" current-in-tab="true">
+      <file leaf-file-name="write.py" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/write.py">
           <provider selected="true" editor-type-id="text-editor">
-            <state vertical-scroll-proportion="0.64600843">
-              <caret line="120" column="31" selection-start-line="120" selection-start-column="31" selection-end-line="120" selection-end-column="31" />
+            <state vertical-scroll-proportion="0.0">
+              <caret line="39" column="35" selection-start-line="39" selection-start-column="35" selection-end-line="39" selection-end-column="35" />
               <folding>
                 <element signature="e#140#163#0" expanded="true" />
               </folding>
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file leaf-file-name="MFRC522.py" pinned="false" current-in-tab="true">
+        <entry file="file://$PROJECT_DIR$/MFRC522.py">
+          <provider selected="true" editor-type-id="text-editor">
+            <state vertical-scroll-proportion="0.7481081">
+              <caret line="402" column="68" selection-start-line="402" selection-start-column="68" selection-end-line="402" selection-end-column="68" />
+              <folding />
             </state>
           </provider>
         </entry>
@@ -145,9 +156,9 @@
         <option value="$PROJECT_DIR$/test_read.py" />
         <option value="$PROJECT_DIR$/read.py" />
         <option value="$PROJECT_DIR$/errors.py" />
-        <option value="$PROJECT_DIR$/MFRC522.py" />
         <option value="$PROJECT_DIR$/test_write.py" />
         <option value="$PROJECT_DIR$/write.py" />
+        <option value="$PROJECT_DIR$/MFRC522.py" />
       </list>
     </option>
   </component>
@@ -867,14 +878,6 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/MFRC522.py">
-      <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="1.625">
-          <caret line="213" column="6" selection-start-line="213" selection-start-column="6" selection-end-line="213" selection-end-column="6" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/test_write.py">
       <provider selected="true" editor-type-id="text-editor">
         <state vertical-scroll-proportion="0.0">
@@ -887,11 +890,19 @@
     </entry>
     <entry file="file://$PROJECT_DIR$/write.py">
       <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="0.64600843">
-          <caret line="120" column="31" selection-start-line="120" selection-start-column="31" selection-end-line="120" selection-end-column="31" />
+        <state vertical-scroll-proportion="0.0">
+          <caret line="39" column="35" selection-start-line="39" selection-start-column="35" selection-end-line="39" selection-end-column="35" />
           <folding>
             <element signature="e#140#163#0" expanded="true" />
           </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/MFRC522.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state vertical-scroll-proportion="0.7481081">
+          <caret line="402" column="68" selection-start-line="402" selection-start-column="68" selection-end-line="402" selection-end-column="68" />
+          <folding />
         </state>
       </provider>
     </entry>

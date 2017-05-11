@@ -203,7 +203,6 @@ def rfid_write(set_data,start_reading):
 
             # Authenticate
             status = MIFAREReader.MFRC522_Auth(MIFAREReader.PICC_AUTHENT1A, 8, key, uid)
-            status2 = MIFAREReader.MFRC522_Auth(MIFAREReader.PICC_AUTHENT1A, 12, key, uid)
             # Check if authenticated
             if status == MIFAREReader.MI_OK :
                 data = []

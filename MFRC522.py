@@ -220,7 +220,7 @@ class MFRC522:
     
     TagType.append(reqMode);
     (status,backData,backBits) = self.MFRC522_ToCard(self.PCD_TRANSCEIVE, TagType)
-  
+
     if ((status != self.MI_OK) | (backBits != 0x10)):
       status = self.MI_ERR
       

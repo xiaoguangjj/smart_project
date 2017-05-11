@@ -34,7 +34,10 @@ MIFAREReader = MFRC522.MFRC522()
 print "Welcome to the MFRC522 data read example"
 print "Press Ctrl-C to stop."
 
+global  sum
+
 # This loop keeps checking for chips. If one is near it will get the UID and authenticate
+
 
 def read1(u1,key,uid):
     global  result
@@ -93,6 +96,8 @@ def read1(u1,key,uid):
             else:
                 print "Authentication error"
                 result = errors.ErrorAuthenticationErr()
+
+            sum = de
         start_reading = False
 
 
@@ -153,6 +158,7 @@ def read2(u2,key,uid):
             else:
                 print "Authentication error"
                 result = errors.ErrorAuthenticationErr()
+            sum = sum + de
         start_reading = False
 
 
@@ -196,7 +202,7 @@ def rfid_read(start_reading):
         t.setDaemon(True)
         t.start()
 
-
+    print sum
     start_reading = False
     #return  result
 

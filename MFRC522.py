@@ -172,7 +172,7 @@ class MFRC522:
     if command == self.PCD_TRANSCEIVE:
       self.SetBitMask(self.BitFramingReg, 0x80)
     
-    i = 2000
+    i = 2000f
     while True:
       n = self.Read_MFRC522(self.CommIrqReg)
       i = i - 1

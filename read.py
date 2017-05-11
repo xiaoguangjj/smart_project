@@ -103,10 +103,10 @@ def read1():
                 print "Authentication error"
 
 
-            status = MIFAREReader.MFRC522_Auth(MIFAREReader.PICC_AUTHENT1A, 8, key, uid)
+            status = MIFAREReader.MFRC522_Auth(MIFAREReader.PICC_AUTHENT1A, 12, key, uid)
             if status == MIFAREReader.MI_OK:
                 try:
-                    data = MIFAREReader.MFRC522_Read(8)
+                    data = MIFAREReader.MFRC522_Read(12)
                 except IOError:
                     print 'Can not find card or your card is damaged.'
                     result = errors.ErrorReadNotFind()
@@ -136,8 +136,8 @@ def read1():
             db.collection_card_num.drop()
             u = dict(name=uid,chunk=1,num = de)
             db.collection_card_num.insert(u)
-            u = dict(name=uid,chunk=1,num = da)
-            db.collection_card_num.insert(u)
+            u2 = dict(name=uid,chunk=2,num = da)
+            db.collection_card_num.insert(u2)
 
 
         start_reading = False
@@ -239,17 +239,18 @@ def rfid_read(start_reading):
     #         # Authenticate
     #         #status = MIFAREReader.MFRC522_Auth(MIFAREReader.PICC_AUTHENT1A, 8, key, uid)
     #         status = read1(MIFAREReader.PICC_AUTHENT1A,key,uid)
-    threads = []
-    t1 = threading.Thread(target=read1,args=())
-    threads.append(t1)
-    t2 = threading.Thread(target=read2,args=())
-    threads.append(t2)
-
-    for t in threads:
-        t.setDaemon(True)
-        t.start()
-
-
-    start_reading = False
+    # threads = []
+    # t1 = threading.Thread(target=read1,args=())
+    # threads.append(t1)
+    # t2 = threading.Thread(target=read2,args=())
+    # threads.append(t2)
+    #
+    # for t in threads:
+    #     t.setDaemon(True)
+    #     t.start()
+    #
+    #
+    # start_reading = False
     #return  result
+    read1()
 

@@ -10,13 +10,17 @@
 import RPi.GPIO as GPIO
 
 import MFRC522
-
 import signal
-
 import errors
 import threading
+from pymongo import MongoClient
 
-continue_reading = True
+client = MongoClient('0.0.0.0',27017)
+db_name = 'RFID_card'
+db = client[db_name]
+collection_card_num = db['card_num']
+
+start_reading = True
 
 # Capture SIGINT for cleanup when the script is aborted
 def end_read(signal,frame,continue_reading):
@@ -34,12 +38,12 @@ MIFAREReader = MFRC522.MFRC522()
 print "Welcome to the MFRC522 data read example"
 print "Press Ctrl-C to stop."
 
-global  sum
+
 
 # This loop keeps checking for chips. If one is near it will get the UID and authenticate
 
 
-def read1(u1,key,uid):
+def read1():
     global  result
     start_reading = True
     while start_reading:
@@ -95,14 +99,17 @@ def read1(u1,key,uid):
                 MIFAREReader.MFRC522_StopCrypto1()
             else:
                 print "Authentication error"
-                result = errors.ErrorAuthenticationErr()
+            result = errors.ErrorAuthenticationErr()
 
-            sum = de
+            db.collection_card_num.drop()
+            u = dict(name = "card",name=uid,num = de,chunk=1)
+            db.collection_card_num.insert(u)
+
         start_reading = False
 
 
 
-def read2(u2,key,uid):
+def read2():
     start_reading = True
     while start_reading:
 
@@ -158,12 +165,17 @@ def read2(u2,key,uid):
             else:
                 print "Authentication error"
                 result = errors.ErrorAuthenticationErr()
-            sum = sum + de
+
+            #db.collection_card_num.drop()
+            u = dict(name = "card",name=uid,num = de,chunk=2)
+            db.collection_card_num.insert(u)
+
         start_reading = False
 
 
 def rfid_read(start_reading):
     global  result
+    global  sum
     # while start_reading:
     #
     #     # Scan for cards

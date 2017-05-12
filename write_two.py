@@ -1,5 +1,6 @@
 #!/usr/bin/env python
 #encoding:utf-8
+
 '''
     Write.py
     ~~~~~~~~~~~~~~~~
@@ -19,6 +20,7 @@ import threading
 from pymongo import MongoClient
 
 reload(sys)
+
 sys.setdefaultencoding('utf-8')
 
 client = MongoClient('0.0.0.0',27017)
@@ -30,13 +32,12 @@ continue_reading = True
 
 class WriteCard(object):
     '写卡功能'
-    def __init__(self,data,data2):
+    def __init__(self,data):
         self.data = data
-        self.data2 = data2
     def func(self):
         try:
             if self.data:
-                MIFAREReader.MFRC522_Write(8, self.data)
+                MIFAREReader.MFRC522_Write(12, self.data)
             print 'write'
         except IOError:
             print 'Can not find your card or your card is damaged.'
@@ -50,7 +51,7 @@ class WriteCard(object):
         try:
             #for i in range((self.i-8)/4):
             if self.data:
-                MIFAREReader.MFRC522_Read(8)
+                MIFAREReader.MFRC522_Read(12)
         except IOError:
             print 'Can not find your card or your card is damaged'
             result = errors.ErrorReadNotFind()
@@ -58,9 +59,6 @@ class WriteCard(object):
             print 'Exception :',e
             result = errors.ErrorReadFailedUnknow()
         return result
-    def func2(self):
-                MIFAREReader.MFRC522_Write(12, self.data2)
-                MIFAREReader.MFRC522_Read(12)
 
 # Capture SIGINT for cleanup when the script is aborted
 def end_read(signal,frame):
@@ -74,7 +72,6 @@ signal.signal(signal.SIGINT, end_read)
 
 # Create an object of the class MFRC522
 MIFAREReader = MFRC522.MFRC522()
-
 
 # This loop keeps checking for chips. If one is near it will get the UID and authenticate
 def deal_data(set_data,data):
@@ -94,50 +91,24 @@ def deal_data(set_data,data):
     else:
         print u'没有包含中文'
 
-        if len(set_data) == 16:
-            try:
-                for i in range(16):
+        try:
+            if 16<len(set_data)<32:
+                for i in range(17,len(set_data)):
                     data.append(ord(set_data[i].encode('utf-8')))
-            except AttributeError as e:
-                print 'Exception:',e
-        elif len(set_data) < 16:
-            for i in range(len(set_data)):
-                data.append(ord(set_data[i].encode('utf-8')))
-            result = errors.ErrorDataShort()
-        else:
-            try:
-                for i in range(16):
-                    data.append(ord(set_data[i].encode('utf-8')))
+                for i in range(len(set_data),33):
+                    data.append(0)
                 print data
-            except AttributeError as e:
-                print 'Exception:',e
-            try:
-                if 16<len(set_data)<32:
-                    for i in range(17,len(set_data)):
-                        data2.append(ord(set_data[i].encode('utf-8')))
-                    for i in range(len(set_data),33):
-                        data2.append(0)
-                    print data2
-                elif len(set_data)==32:
-                    for i in range(17,32):
-                        data2.append(ord(set_data[i].encode('utf-8')))
-                else:
-                    pass
-            except AttributeError as e:
-                print 'Exception:',e
-            result = errors.ErrorDataLong()
+            elif len(set_data)==32:
+                for i in range(17,32):
+                    data.append(ord(set_data[i].encode('utf-8')))
+            else:
+                pass
+        except AttributeError as e:
+            print 'Exception:',e
+        result = errors.ErrorDataLong()
     print "Now we fill it with 0x00:"
 
-    result = WriteCard(data,data2).func()
-    threads = []
-    t1 = threading.Thread(target=WriteCard().func(),args=(data,data2))
-    threads.append(t1)
-    t2 = threading.Thread(target=WriteCard().func2(),args=(data,data2))
-    threads.append(t2)
-
-    for t in threads:
-        t.setDaemon(True)
-        t.start()
+    result = WriteCard(data).func()
 
     return  result
 
@@ -175,7 +146,7 @@ def deal_data2(set_data,data):
     result = WriteCard(data,data2).func()
     return  result
 
-def rfid_write(set_data,start_reading):
+def rfid_write2(set_data,start_reading):
     #result = 1
     while start_reading:
     
@@ -202,7 +173,7 @@ def rfid_write(set_data,start_reading):
             MIFAREReader.MFRC522_SelectTag(uid)
 
             # Authenticate
-            status = MIFAREReader.MFRC522_Auth(MIFAREReader.PICC_AUTHENT1A, 8, key, uid)
+            status = MIFAREReader.MFRC522_Auth(MIFAREReader.PICC_AUTHENT1A, 12, key, uid)
             # Check if authenticated
             if status == MIFAREReader.MI_OK :
                 data = []

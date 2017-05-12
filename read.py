@@ -11,6 +11,7 @@ import RPi.GPIO as GPIO
 
 import MFRC522
 import signal
+
 import errors
 import threading
 from pymongo import MongoClient
@@ -98,35 +99,6 @@ def read1():
                             print (chr(data[i])+chr(data[i+1])+chr(data[i+2])).decode('utf-8')
                         #print da
                 #MIFAREReader.MFRC522_StopCrypto1()
-            else:
-                print "Authentication error"
-
-            status = MIFAREReader.MFRC522_Auth(MIFAREReader.PICC_AUTHENT1A, 12, key, uid)
-            if status == MIFAREReader.MI_OK:
-                try:
-                    data = MIFAREReader.MFRC522_Read(12)
-                except IOError:
-                    print 'Can not find card or your card is damaged.'
-                    result = errors.ErrorReadNotFind()
-                except Exception as e:
-                    print 'Exception :',e
-                    result = errors.ErrorReadFailedUnknow()
-                print 'The data after change:'
-                asci = set([i for i in range(127)])
-                ddata = set(data)
-                if ddata.issubset(asci):
-                    for i in range(len(data)):
-                        da.append(chr(data[i]))
-                        #da.append(data[i].decode('utf-8'))
-                        #print data[i].decode('utf-8')
-                    print da
-                else:
-                    for i in range(len(data)-2):
-                        if i%3==0:
-                            #da.append((chr(data[i])+chr(data[i+1])+chr(data[i+2])).decode('utf-8'))
-                            print (chr(data[i])+chr(data[i+1])+chr(data[i+2])).decode('utf-8')
-                        #print da
-                MIFAREReader.MFRC522_StopCrypto1()
             else:
                 print "Authentication error"
 

@@ -30,9 +30,8 @@ continue_reading = True
 
 class WriteCard(object):
     '写卡功能'
-    def __init__(self,data,data2):
+    def __init__(self,data):
         self.data = data
-        self.data2 = data2
     def func(self):
         try:
             if self.data:
@@ -58,9 +57,7 @@ class WriteCard(object):
             print 'Exception :',e
             result = errors.ErrorReadFailedUnknow()
         return result
-    def func2(self):
-                MIFAREReader.MFRC522_Write(12, self.data2)
-                MIFAREReader.MFRC522_Read(12)
+
 
 # Capture SIGINT for cleanup when the script is aborted
 def end_read(signal,frame):
@@ -128,16 +125,7 @@ def deal_data(set_data,data):
             result = errors.ErrorDataLong()
     print "Now we fill it with 0x00:"
 
-    result = WriteCard(data,data2).func()
-    threads = []
-    t1 = threading.Thread(target=WriteCard().func(),args=(data,data2))
-    threads.append(t1)
-    t2 = threading.Thread(target=WriteCard().func2(),args=(data,data2))
-    threads.append(t2)
-
-    for t in threads:
-        t.setDaemon(True)
-        t.start()
+    result = WriteCard(data).func()
 
     return  result
 

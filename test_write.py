@@ -1,10 +1,12 @@
 #encoding:utf-8
 
 import write
+import write_two
 import errors
 import threading
 from time import sleep,ctime
 from write import rfid_write
+from write_two import rfid_write2
 
 
 class MyThread(threading.Thread):
@@ -45,6 +47,7 @@ def test_zhcn():
 def test_cityid():
     set_data = '5875d4dc2bf1d0ac79e05fb8'
     result =  rfid_write(set_data,True)
+    result =  rfid_write2(set_data,True)
     print "The result of write into the card：%s " % result.code
 
 def test_shortdata():

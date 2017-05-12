@@ -37,9 +37,9 @@ def login():
         db.collection_card_num.drop()
         u = dict(name = "card",num = card)
         db.collection_card_num.insert(u)
-    '''u2 = db.collection_card_num.find_one({name:"card"})
-	u2['num'] = card
-	db.collection_card_num.save(u2)'''
+    ''' u2 = db.collection_card_num.find_one({name:"card"})
+	    u2['num'] = card
+	    db.collection_card_num.save(u2)'''
     return redirect(url_for('index'))
 
     return render_template('login.html')

@@ -26,7 +26,7 @@ sys.setdefaultencoding('utf-8')
 client = MongoClient('0.0.0.0',27017)
 db_name = 'RFID_card'
 db = client[db_name]
-collection_card_num = db['card_num']
+card_s = db['card_num']
 
 continue_reading = True
 
@@ -74,7 +74,7 @@ signal.signal(signal.SIGINT, end_read)
 MIFAREReader = MFRC522.MFRC522()
 
 # This loop keeps checking for chips. If one is near it will get the UID and authenticate
-def deal_data(set_data,data):
+def deal_data(uid,set_data,data):
     data2 = []
     zhPattern = re.compile(u'[\u4e00-\u9fa5]+')
     match = zhPattern.search(set_data)
@@ -110,6 +110,12 @@ def deal_data(set_data,data):
 
     result = WriteCard(data).func()
 
+    #db.collection_card_num.drop()
+    u = dict(name=uid,chunk=2,num = data)
+    if db.card_s.find({'name' : uid},{'chunk' : 2}):
+        db.card_s.update({'name':uid})
+    else:
+        db.card_s.insert(u)
     return  result
 
 def deal_data2(set_data,data):
@@ -179,7 +185,7 @@ def rfid_write2(set_data,start_reading):
                 data = []
 
                 if isinstance(set_data,str):
-            	    result = deal_data(set_data,data)
+                    result = deal_data(uid,set_data,data)
                 elif isinstance(set_data,list):
                     result = deal_data2(set_data,data)
                 else:

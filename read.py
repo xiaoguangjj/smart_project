@@ -42,7 +42,6 @@ print "Welcome to the MFRC522 data read example"
 print "Press Ctrl-C to stop."
 
 
-
 # This loop keeps checking for chips. If one is near it will get the UID and authenticate
 
 
@@ -98,10 +97,9 @@ def read1():
                             #da.append((chr(data[i])+chr(data[i+1])+chr(data[i+2])).decode('utf-8'))
                             print (chr(data[i])+chr(data[i+1])+chr(data[i+2])).decode('utf-8')
                         #print da
-                MIFAREReader.MFRC522_StopCrypto1()
+                #MIFAREReader.MFRC522_StopCrypto1()
             else:
                 print "Authentication error"
-
 
             status = MIFAREReader.MFRC522_Auth(MIFAREReader.PICC_AUTHENT1A, 12, key, uid)
             if status == MIFAREReader.MI_OK:
@@ -136,12 +134,8 @@ def read1():
             db.collection_card_num.drop()
             u = dict(name=uid,chunk=1,num = de)
             db.collection_card_num.insert(u)
-            u2 = dict(name=uid,chunk=2,num = da)
-            db.collection_card_num.insert(u2)
-
 
         start_reading = False
-
 
 
 def read2():

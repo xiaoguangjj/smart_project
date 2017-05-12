@@ -58,7 +58,7 @@ class WriteCard(object):
         except Exception as e:
             print 'Exception :',e
             result = errors.ErrorReadFailedUnknow()
-        return result
+        #return result
 
 # Capture SIGINT for cleanup when the script is aborted
 def end_read(signal,frame):
@@ -112,10 +112,11 @@ def deal_data(uid,set_data,data):
 
     #db.collection_card_num.drop()
     u = dict(name=uid,chunk=2,num = data)
-    if db.card_s.find({'name' : uid},{'chunk' : 2}):
-        db.card_s.update({'name':uid})
-    else:
-        db.card_s.insert(u)
+    db.card_s.insert(u)
+    #if db.card_s.find({'name' : uid},{'chunk' : 2}):
+    #    db.card_s.update({'name':uid},{'$set':{'num':data}})
+    #else:
+    #    db.card_s.insert(u)
     return  result
 
 def deal_data2(set_data,data):

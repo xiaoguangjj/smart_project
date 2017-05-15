@@ -8,7 +8,6 @@ from time import sleep,ctime
 from write import rfid_write
 from write_two import rfid_write2
 
-
 class MyThread(threading.Thread):
     def __init__(self,func,args,name=''):
         threading.Thread.__init__(self)
@@ -40,7 +39,7 @@ def test_character():
     print "The result of write into the card：%s " % result.code
 
 def test_zhcn():
-    set_data = u'趣活科技货1'
+    set_data = u'趣活科技货物1'
     result =  rfid_write(set_data,True)
     print "The result of write into the card：%s " % result.code
 

@@ -102,26 +102,26 @@ def deal_data(uid,set_data,data):
                 data.append(ord(set_data[i].encode('utf-8')))
             result = errors.ErrorDataShort()
         else:
-            try:
-                for i in range(16):
-                    data.append(ord(set_data[i].encode('utf-8')))
-                print data
-            except AttributeError as e:
-                print 'Exception:',e
-            try:
-                if 16<len(set_data)<32:
-                    for i in range(17,len(set_data)):
-                        data2.append(ord(set_data[i].encode('utf-8')))
-                    for i in range(len(set_data),33):
-                        data2.append(0)
-                    print data2
-                elif len(set_data)==32:
-                    for i in range(17,32):
-                        data2.append(ord(set_data[i].encode('utf-8')))
-                else:
-                    pass
-            except AttributeError as e:
-                print 'Exception:',e
+            #try:
+            for i in range(16):
+                data.append(ord(set_data[i].encode('utf-8')))
+            print data
+            #except AttributeError as e:
+            #     print 'Exception:',e
+            # try:
+            #     if 16<len(set_data)<32:
+            #         for i in range(17,len(set_data)):
+            #             data2.append(ord(set_data[i].encode('utf-8')))
+            #         for i in range(len(set_data),33):
+            #             data2.append(0)
+            #         print data2
+            #     elif len(set_data)==32:
+            #         for i in range(17,32):
+            #             data2.append(ord(set_data[i].encode('utf-8')))
+            #     else:
+            #         pass
+            # except AttributeError as e:
+            #     print 'Exception:',e
             result = errors.ErrorDataLong()
     print "Now we fill it with 0x00:"
 

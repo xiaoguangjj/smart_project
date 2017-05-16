@@ -7,13 +7,13 @@
     :copyright: (c) 2017 by jxg.
 '''
 
-import RPi.GPIO as GPIO
-
-import MFRC522
 import signal
-import errors
-import threading
+
 from pymongo import MongoClient
+
+import RPi.GPIO as GPIO
+from vender import MFRC522
+import errors
 
 client = MongoClient('0.0.0.0',27017)
 db_name = 'RFID_card'

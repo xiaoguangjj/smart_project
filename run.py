@@ -1,13 +1,8 @@
 #!/usr/bin/env python
 # -*- coding: utf8 -*-
 
-import RPi.GPIO as GPIO
-import MFRC522
-import signal
-
 from flask import *
 
-import pymongo
 from pymongo import MongoClient
 
 client = MongoClient('0.0.0.0',27017)

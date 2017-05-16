@@ -1,12 +1,11 @@
 #encoding:utf-8
 
-import write
-import write_two
-import errors
 import threading
-from time import sleep,ctime
+from time import ctime
+
 from write import rfid_write
-from write_two import rfid_write2
+from site.write_two import rfid_write2
+
 
 class MyThread(threading.Thread):
     def __init__(self,func,args,name=''):
@@ -30,6 +29,21 @@ def test_interger():
 
 def test_int_ch():
     set_data = ['a','b','c','d',1,2,3,4,5,6,7,8,9,0,'a','b']
+    result =  rfid_write(set_data,True)
+    print "The result of write into the card：%s " % result.code
+
+def test_float():
+    set_data = ['a','b','c','d',1.00,2.00,3.00,4.00,5.0,6.0,7.0,8.0,9.0,0,'a','b']
+    result =  rfid_write(set_data,True)
+    print "The result of write into the card：%s " % result.code
+
+def test_bool():
+    set_data = [True,False,True,False,True,False,True,False,True,False,True,False,True,False,True,False]
+    result =  rfid_write(set_data,True)
+    print "The result of write into the card：%s " % result.code
+
+def test_dict():
+    set_data = ('a','b','c','d',1.00,2.00,3.00,4.00,5.0,6.0,7.0,8.0,9.0,0,'a','b')
     result =  rfid_write(set_data,True)
     print "The result of write into the card：%s " % result.code
 

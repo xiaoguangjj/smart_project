@@ -8,16 +8,15 @@
     :copyright: (c) 2017 by jxg.
 '''
 
-import RPi.GPIO as GPIO
-import MFRC522
 import signal
-import pymongo
 import sys
-import errors
 import re
-import threading
 
 from pymongo import MongoClient
+
+import RPi.GPIO as GPIO
+from vender import MFRC522
+import errors
 
 reload(sys)
 
@@ -31,7 +30,9 @@ card_s = db['card_num']
 continue_reading = True
 
 class WriteCard(object):
-    '写卡功能'
+    '''
+    写卡功能
+    '''
     def __init__(self,data):
         self.data = data
     def func(self):

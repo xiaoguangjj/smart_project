@@ -7,16 +7,18 @@
     :copyright: (c) 2017 by jxg.
 '''
 
-import RPi.GPIO as GPIO
-import MFRC522
 import signal
-import pymongo
 import sys
-import errors
 import re
-import threading
+import logging
 
 from pymongo import MongoClient
+
+import RPi.GPIO as GPIO
+from vender import MFRC522
+import errors
+
+logger = logging.getLogger(__name__)
 
 reload(sys)
 sys.setdefaultencoding('utf-8')
@@ -29,20 +31,24 @@ card_s = db['card_num']
 continue_reading = True
 
 class WriteCard(object):
-    '写卡功能'
+    """
+    写卡功能
+    """
     def __init__(self,data):
         self.data = data
+
     def func(self):
         try:
             if self.data:
                 MIFAREReader.MFRC522_Write(8, self.data)
-            print 'write'
+            #print 'write'
         except IOError:
             print 'Can not find your card or your card is damaged.'
             result = errors.ErrorWriteNotFind()
         except Exception as e:
             print 'Exception :',e
             result = errors.ErrorWriteFailedUnkown()
+            logger.info('===== mss-create-order-request-data: ===== %s', result)
 
         print "It is now empty:"
             # Check to see if it was written
@@ -80,18 +86,16 @@ def deal_data(uid,set_data,data):
     match = zhPattern.search(set_data)
 
     if match:
-        print u'有中文: %s'% (match.group(0),)
+        #print u'有中文: %s'% (match.group(0),)
         #print ord(match.encode('utf-8'))
         for i in range(len(set_data)):
             for j in set_data[i].encode('utf-8'):
                 print j,i,type(j)
-
                 data.append(ord(j))
-
                 #print list(set_data)[i].encode('utf-8')
         result = errors.ErrorzhcnErr()
     else:
-        print u'没有包含中文'
+        #print u'没有包含中文'
 
         if len(set_data) == 16:
             try:

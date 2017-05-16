@@ -47,7 +47,7 @@ def test_cityid():
     set_data = '5875d4dc2bf1d0ac79e05fb8'
     result =  rfid_write(set_data,True)
     result =  rfid_write2(set_data,True)
-    print "The result of write into the card：%s " % result.code
+    #print "The result of write into the card：%s " % result.code
 
 def test_shortdata():
     set_data = '123456789'

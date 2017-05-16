@@ -58,7 +58,7 @@ class WriteCard(object):
         except Exception as e:
             print 'Exception :',e
             result = errors.ErrorReadFailedUnknow()
-        return result
+        #return result
 
 # Capture SIGINT for cleanup when the script is aborted
 def end_read(signal,frame):
@@ -96,7 +96,7 @@ def deal_data(uid,set_data,data):
                 for i in range(17,len(set_data)):
                     data.append(ord(set_data[i].encode('utf-8')))
                 for i in range(len(set_data),33):
-                    data.append(0)
+                    data.append(ord('*'))
                 print data
             elif len(set_data)==32:
                 for i in range(17,32):
@@ -112,10 +112,11 @@ def deal_data(uid,set_data,data):
 
     #db.collection_card_num.drop()
     u = dict(name=uid,chunk=2,num = data)
-    if db.card_s.find({'name' : uid},{'chunk' : 2}):
-        db.card_s.update({'name':uid})
-    else:
-        db.card_s.insert(u)
+    db.card_s.insert(u)
+    #if db.card_s.find({'name' : uid},{'chunk' : 2}):
+    #    db.card_s.update({'name':uid},{'$set':{'num':data}})
+    #else:
+    #    db.card_s.insert(u)
     return  result
 
 def deal_data2(set_data,data):
@@ -140,7 +141,7 @@ def deal_data2(set_data,data):
             for i in range(17,(32 - len(set_data))):
                 data2.append(ord(set_data[i].encode('utf-8')))
             for i in range(len(set_data),32):
-                data2.append(0)
+                data2.append(ord('*'))
         elif len(set_data)==32:
             for i in range(17,32):
                 data2.append(ord(set_data[i].encode('utf-8')))

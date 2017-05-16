@@ -85,8 +85,10 @@ def deal_data(uid,set_data,data):
         for i in range(len(set_data)):
             for j in set_data[i].encode('utf-8'):
                 print j,i,type(j)
+
                 data.append(ord(j))
-            #print list(set_data)[i].encode('utf-8')
+
+                #print list(set_data)[i].encode('utf-8')
         result = errors.ErrorzhcnErr()
     else:
         print u'没有包含中文'
@@ -100,43 +102,32 @@ def deal_data(uid,set_data,data):
         elif len(set_data) < 16:
             for i in range(len(set_data)):
                 data.append(ord(set_data[i].encode('utf-8')))
+            for i in range(len(set_data),16):
+                data.append(ord('*'))
             result = errors.ErrorDataShort()
         else:
-            #try:
-            for i in range(16):
-                data.append(ord(set_data[i].encode('utf-8')))
-            print data
-            #except AttributeError as e:
-            #     print 'Exception:',e
-            # try:
-            #     if 16<len(set_data)<32:
-            #         for i in range(17,len(set_data)):
-            #             data2.append(ord(set_data[i].encode('utf-8')))
-            #         for i in range(len(set_data),33):
-            #             data2.append(0)
-            #         print data2
-            #     elif len(set_data)==32:
-            #         for i in range(17,32):
-            #             data2.append(ord(set_data[i].encode('utf-8')))
-            #     else:
-            #         pass
-            # except AttributeError as e:
-            #     print 'Exception:',e
+            try:
+                for i in range(16):
+                    data.append(ord(set_data[i].encode('utf-8')))
+                print data
+            except AttributeError as e:
+                print 'Exception:',e
             result = errors.ErrorDataLong()
     print "Now we fill it with 0x00:"
 
     result = WriteCard(data).func()
 
-    #db.card_s.drop()
-    u = dict(name=uid,chunk=1,num = data)
-    if db.card_s.find({'name' : uid},{'chunk' : 1}):
-        db.card_s.update({'name':uid})
-    else:
-        db.card_s.insert(u)
+    db.card_s.drop()
+    u = dict(name=uid,chunk=1,num=data)
+    db.card_s.insert(u)
+    #if db.card_s.find({'name':uid},{'chunk':1}):
+    #    db.card_s.update({'name':uid},{'$set':{'num':data}})
+    #else:
+    #    db.card_s.insert(u)
 
     #return  result
 
-def deal_data2(set_data,data):
+def deal_data2(uid,set_data,data):
     data2 = []
     if len(set_data) == 16:
         try:
@@ -158,7 +149,7 @@ def deal_data2(set_data,data):
             for i in range(17,(32 - len(set_data))):
                 data2.append(ord(set_data[i].encode('utf-8')))
             for i in range(len(set_data),32):
-                data2.append(0)
+                data2.append(ord('*'))
         elif len(set_data)==32:
             for i in range(17,32):
                 data2.append(ord(set_data[i].encode('utf-8')))
@@ -168,6 +159,9 @@ def deal_data2(set_data,data):
     print "Now we fill it with 0x00:"
 
     result = WriteCard(data,data2).func()
+    db.card_s.drop()
+    u = dict(name=uid,chunk=1,num=data)
+    db.card_s.insert(u)
     return  result
 
 def rfid_write(set_data,start_reading):
@@ -201,21 +195,10 @@ def rfid_write(set_data,start_reading):
             # Check if authenticated
             if status == MIFAREReader.MI_OK :
                 data = []
-            # te = []
-            #    # Fill the data with 0x00
-            #
-	        # l = db.collection_card_num.find_one({'name':'card'},{'num':1,'_id':0})
-	        # str = l.get('num',0)
-	        # #print str.encode('utf-8')
-	        # #print len(l.get('num',0))
-	        # for i in range(0,len(l.get('num',0))):
-	       	#     #data.append(ord(l.get('num',0)[i]))
-		    #    data.append(l.get('num',0)[i].encode('utf-8'))
-		    #    print l.get('num',0)[i].encode('utf-8')
-                if isinstance(set_data,str):
-            	    result = deal_data(uid,set_data,data)
+                if isinstance(set_data,str) or isinstance(set_data,unicode):
+                    result = deal_data(uid,set_data,data)
                 elif isinstance(set_data,list):
-                    result = deal_data2(set_data,data)
+                    result = deal_data2(uid,set_data,data)
                 else:
                     result = errors.ErrorparamErr
                 # Stop

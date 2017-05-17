@@ -75,7 +75,7 @@ signal.signal(signal.SIGINT, end_read)
 MIFAREReader = MFRC522.MFRC522()
 
 # This loop keeps checking for chips. If one is near it will get the UID and authenticate
-def deal_data(uid,set_data,data):
+def deal_data_str(uid,set_data,data):
     data2 = []
     zhPattern = re.compile(u'[\u4e00-\u9fa5]+')
     match = zhPattern.search(set_data)
@@ -120,7 +120,7 @@ def deal_data(uid,set_data,data):
     #    db.card_s.insert(u)
     return  result
 
-def deal_data2(set_data,data):
+def deal_data_list(set_data,data):
     data2 = []
     if len(set_data) == 16:
         try:
@@ -154,7 +154,7 @@ def deal_data2(set_data,data):
     result = WriteCard(data,data2).func()
     return  result
 
-def rfid_write2(set_data,start_reading):
+def rfid_write_12(set_data,start_reading):
     #result = 1
     while start_reading:
     
@@ -187,9 +187,9 @@ def rfid_write2(set_data,start_reading):
                 data = []
 
                 if isinstance(set_data,str):
-                    result = deal_data(uid,set_data,data)
+                    result = deal_data_str(uid,set_data,data)
                 elif isinstance(set_data,list):
-                    result = deal_data2(set_data,data)
+                    result = deal_data_list(set_data,data)
                 else:
                     result = errors.ErrorparamErr
                 # Stop

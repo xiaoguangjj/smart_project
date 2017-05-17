@@ -8,11 +8,14 @@
 '''
 
 import signal
+import sys
+sys.path.append('/home/pi/project_rfid/smart_project/smart_project/vender')
+sys.path.append('/home/pi/project_rfid/smart_project/smart_project')
 
 from pymongo import MongoClient
 
 import RPi.GPIO as GPIO
-from vender import MFRC522
+import MFRC522
 import errors
 
 client = MongoClient('0.0.0.0',27017)

@@ -9,6 +9,8 @@
 
 import signal
 import sys
+import logging
+
 sys.path.append('/home/pi/project_rfid/smart_project/smart_project/vender')
 sys.path.append('/home/pi/project_rfid/smart_project/smart_project')
 
@@ -18,6 +20,8 @@ import RPi.GPIO as GPIO
 import MFRC522
 import errors
 
+logger = logging.getLogger(__name__)
+
 client = MongoClient('0.0.0.0',27017)
 db_name = 'RFID_card'
 db = client[db_name]
@@ -26,6 +30,9 @@ collection_card_num = db['card_num']
 da = []
 de = []
 
+"""
+MFRC522硬件初始化
+"""
 # Capture SIGINT for cleanup when the script is aborted
 def end_read(signal,frame,continue_reading):
     print "Ctrl+C captured, ending read."
@@ -45,8 +52,10 @@ print "Press Ctrl-C to stop."
 
 # This loop keeps checking for chips. If one is near it will get the UID and authenticate
 
-
-def rfid_read(start_reading):
+"""
+读第一块数据，对应存储在s50卡的第8个数据区
+"""
+def read_first_block(start_reading):
     global  result
     while start_reading:
 
@@ -72,6 +81,8 @@ def rfid_read(start_reading):
             # Select the scanned tag
             MIFAREReader.MFRC522_SelectTag(uid)
             status = MIFAREReader.MFRC522_Auth(MIFAREReader.PICC_AUTHENT1A, 8, key, uid)
+            logger.info('===== log-MFRC522_Auth: =====')
+
             # Check if authenticated
             if status == MIFAREReader.MI_OK:
                 try:
@@ -79,9 +90,12 @@ def rfid_read(start_reading):
                 except IOError:
                     print 'Can not find card or your card is damaged.'
                     result = errors.ErrorReadNotFind()
+                    logger.error('===== log-found: ===== %s', result)
                 except Exception as e:
                     print 'Exception :',e
                     result = errors.ErrorReadFailedUnknow()
+                    logger.error('===== log-write: ===== %s', result)
+
                 print 'The data after change:'
                 asci = set([i for i in range(127)])
                 ddata = set(data)
@@ -102,10 +116,14 @@ def rfid_read(start_reading):
                 print "Authentication error"
 
             result = errors.ErrorAuthenticationErr()
+            logger.error('===== log-write: ===== %s', result)
+
             # db.collection_card_num.drop()
             # u = dict(name=uid,chunk=1,num = de)
             # db.collection_card_num.insert(u)
-
+            l = db.card_s.find({'name':uid,'chunck':1},{'num':1,'_id':0})
+            str = l.get('num',0)
+            print str
             start_reading = False
 
 

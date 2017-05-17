@@ -11,9 +11,11 @@
 import signal
 import sys
 import re
+import logging
 
 from pymongo import MongoClient
 
+logger = logging.getLogger(__name__)
 import RPi.GPIO as GPIO
 from vender import MFRC522
 import errors
@@ -31,7 +33,7 @@ continue_reading = True
 
 class WriteCard(object):
     '''
-    写卡功能
+    写卡功能,将数据写入到磁卡中，然后读出数据
     '''
     def __init__(self,data):
         self.data = data
@@ -43,6 +45,8 @@ class WriteCard(object):
         except IOError:
             print 'Can not find your card or your card is damaged.'
             result = errors.ErrorWriteNotFind()
+            logger.debug('===== mss-error: ===== %s',result)
+
         except Exception as e:
             print 'Exception :',e
             result = errors.ErrorWriteFailedUnkown()
@@ -56,9 +60,12 @@ class WriteCard(object):
         except IOError:
             print 'Can not find your card or your card is damaged'
             result = errors.ErrorReadNotFind()
+            logger.debug('===== mss-error: ===== %s',result)
+
         except Exception as e:
             print 'Exception :',e
             result = errors.ErrorReadFailedUnknow()
+            logger.debug('===== mss-error: ===== %s',result)
         #return result
 
 # Capture SIGINT for cleanup when the script is aborted
@@ -74,6 +81,9 @@ signal.signal(signal.SIGINT, end_read)
 # Create an object of the class MFRC522
 MIFAREReader = MFRC522.MFRC522()
 
+"""
+str,unicode类型的数据校验
+"""
 # This loop keeps checking for chips. If one is near it will get the UID and authenticate
 def deal_data_str(uid,set_data,data):
     data2 = []
@@ -89,6 +99,7 @@ def deal_data_str(uid,set_data,data):
                 data.append(ord(j))
             #print list(set_data)[i].encode('utf-8')
         result = errors.ErrorzhcnErr()
+        logger.debug('===== mss-error: ===== %s',result)
     else:
         print u'没有包含中文'
 
@@ -107,6 +118,7 @@ def deal_data_str(uid,set_data,data):
         except AttributeError as e:
             print 'Exception:',e
         result = errors.ErrorDataLong()
+        logger.debug('===== mss-error: ===== %s',result)
     print "Now we fill it with 0x00:"
 
     result = WriteCard(data).func()
@@ -120,6 +132,9 @@ def deal_data_str(uid,set_data,data):
     #    db.card_s.insert(u)
     return  result
 
+"""
+list,tuple类型的数据校验
+"""
 def deal_data_list(set_data,data):
     data2 = []
     if len(set_data) == 16:
@@ -135,6 +150,7 @@ def deal_data_list(set_data,data):
         for i in range(len(set_data)):
             data.append(ord(set_data[i].encode('utf-8')))
         result = errors.ErrorDataShort()
+        logger.debug('===== mss-error: ===== %s',result)
     else:
         for i in range(16):
             data.append(ord(set_data[i].encode('utf-8')))
@@ -149,12 +165,16 @@ def deal_data_list(set_data,data):
         else:
             pass
         result = errors.ErrorDataLong()
+        logger.debug('===== mss-error: ===== %s',result)
     print "Now we fill it with 0x00:"
 
     result = WriteCard(data,data2).func()
     return  result
 
-def rfid_write_12(set_data,start_reading):
+"""
+写入第二块数据，对应s50卡的第12个数据块
+"""
+def write_second_block(set_data,start_reading):
     #result = 1
     while start_reading:
     
@@ -167,6 +187,7 @@ def rfid_write_12(set_data,start_reading):
 
         # Get the UID of the card
         status,uid = MIFAREReader.MFRC522_Anticoll()
+        logger.info('===== log-write-MFRC522_Anticoll: =====')
 
        # If we have the UID, continue
         if status == MIFAREReader.MI_OK:
@@ -182,6 +203,8 @@ def rfid_write_12(set_data,start_reading):
 
             # Authenticate
             status = MIFAREReader.MFRC522_Auth(MIFAREReader.PICC_AUTHENT1A, 12, key, uid)
+            logger.info('===== log-write-auth: =====')
+
             # Check if authenticated
             if status == MIFAREReader.MI_OK :
                 data = []
@@ -192,6 +215,7 @@ def rfid_write_12(set_data,start_reading):
                     result = deal_data_list(set_data,data)
                 else:
                     result = errors.ErrorparamErr
+                    logger.debug('===== mss-error: ===== %s',result)
                 # Stop
                 MIFAREReader.MFRC522_StopCrypto1()
 
@@ -201,4 +225,6 @@ def rfid_write_12(set_data,start_reading):
             else:
                 print "Authentication error"
                 result = errors.ErrorAuthenticationErr()
+                logger.debug('===== mss-not-error: ===== %s',result)
+
     #return result

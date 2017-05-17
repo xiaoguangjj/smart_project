@@ -8,12 +8,14 @@
 '''
 
 import signal
+import logging
 
 from pymongo import MongoClient
 
 import RPi.GPIO as GPIO
 from vender import MFRC522
 import errors
+logger = logging.getLogger(__name__)
 
 client = MongoClient('0.0.0.0',27017)
 db_name = 'RFID_card'
@@ -44,8 +46,11 @@ print "Press Ctrl-C to stop."
 
 # This loop keeps checking for chips. If one is near it will get the UID and authenticate
 
+"""
+读第二块数据，对应存储在s50卡的第12个数据区
+"""
 
-def rfid_read2(start_reading):
+def read_second_block(start_reading):
     global  result
     while start_reading:
 
@@ -76,12 +81,15 @@ def rfid_read2(start_reading):
             if status == MIFAREReader.MI_OK:
                 try:
                     data = MIFAREReader.MFRC522_Read(12)
+                    logger.info('===== log-MFRC522_Read: ===== %s', data)
                 except IOError:
                     print 'Can not find card or your card is damaged.'
                     result = errors.ErrorReadNotFind()
+                    logger.error('===== log-error: ===== %s', result)
                 except Exception as e:
                     print 'Exception :',e
                     result = errors.ErrorReadFailedUnknow()
+                    logger.error('===== log-error: ===== %s', result)
                 print 'The data after change:'
                 asci = set([i for i in range(127)])
                 ddata = set(data)
@@ -101,6 +109,7 @@ def rfid_read2(start_reading):
             else:
                 print "Authentication error"
                 result = errors.ErrorAuthenticationErr()
+                logger.error('===== mss-not-found: ===== %s',result)
 
             #db.collection_card_num.drop()
             # u = dict(name=uid,chunk=2,num = de)

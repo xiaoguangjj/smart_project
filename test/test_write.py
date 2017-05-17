@@ -2,10 +2,10 @@
 
 import threading
 from time import ctime
-
-from write import rfid_write
-from site.write_two import rfid_write2
-
+import sys
+sys.path.append('/home/pi/project_rfid/smart_project/smart_project/site')
+import write
+import write_two
 
 class MyThread(threading.Thread):
     def __init__(self,func,args,name=''):
@@ -24,48 +24,48 @@ class MyThread(threading.Thread):
 
 def test_interger():
     set_data = [1 for i in range(16)]
-    result =  rfid_write(set_data,True)
+    result =  rfid_write_8(set_data,True)
     print "The result of write into the card：%s " % result.code
 
 def test_int_ch():
     set_data = ['a','b','c','d',1,2,3,4,5,6,7,8,9,0,'a','b']
-    result =  rfid_write(set_data,True)
+    result =  rfid_write_8(set_data,True)
     print "The result of write into the card：%s " % result.code
 
 def test_float():
     set_data = ['a','b','c','d',1.00,2.00,3.00,4.00,5.0,6.0,7.0,8.0,9.0,0,'a','b']
-    result =  rfid_write(set_data,True)
+    result =  rfid_write_8(set_data,True)
     print "The result of write into the card：%s " % result.code
 
 def test_bool():
     set_data = [True,False,True,False,True,False,True,False,True,False,True,False,True,False,True,False]
-    result =  rfid_write(set_data,True)
+    result =  rfid_write_8(set_data,True)
     print "The result of write into the card：%s " % result.code
 
 def test_dict():
     set_data = ('a','b','c','d',1.00,2.00,3.00,4.00,5.0,6.0,7.0,8.0,9.0,0,'a','b')
-    result =  rfid_write(set_data,True)
+    result =  rfid_write_8(set_data,True)
     print "The result of write into the card：%s " % result.code
 
 def test_character():
     set_data = u'cityio_001-00001'
-    result =  rfid_write(set_data,True)
+    result =  rfid_write_8(set_data,True)
     print "The result of write into the card：%s " % result.code
 
 def test_zhcn():
     set_data = u'趣活科技货物1'
-    result =  rfid_write(set_data,True)
+    result =  rfid_write_8(set_data,True)
     print "The result of write into the card：%s " % result.code
 
 def test_cityid():
     set_data = '5875d4dc2bf1d0ac79e05fb8'
-    result =  rfid_write(set_data,True)
-    result =  rfid_write2(set_data,True)
+    result =  write.rfid_write_8(set_data,True)
+    result =  write_two.rfid_write_16(set_data,True)
     #print "The result of write into the card：%s " % result.code
 
 def test_shortdata():
     set_data = '123456789'
-    result =  rfid_write(set_data,True)
+    result =  rfid_write_8(set_data,True)
     print "The result of write into the card：%s " % result.code
 
 funcs = [test_zhcn,test_interger,test_shortdata,test_cityid]

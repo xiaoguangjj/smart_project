@@ -1,14 +1,16 @@
 #encoding:utf-8
 
-from site.read import rfid_read
-from site.read_two import rfid_read2
+import sys
+sys.path.append('/home/pi/project_rfid/smart_project/smart_project/site')
 
-#import test_write
+import read
+import read_two
+
 
 #注意s50卡数据块读时需要从后往前读
 
-result = rfid_read2(True)
-result = rfid_read(True)
+result = read_two.rfid_read2(True)
+result = read.rfid_read(True)
 
 print '读射频卡结果：',result.code_name
 

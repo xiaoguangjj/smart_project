@@ -10,6 +10,7 @@
 import signal
 import sys
 import logging
+import os
 
 sys.path.append('/home/pi/project_rfid/smart_project/smart_project/vender')
 sys.path.append('/home/pi/project_rfid/smart_project/smart_project')
@@ -73,7 +74,7 @@ def read_first_block(start_reading):
         if status == MIFAREReader.MI_OK:
 
             # Print UID
-            print "Card read UID: "+str(uid[0])+","+str(uid[1])+","+str(uid[2])+","+str(uid[3])
+            print "Card read UID: "+str(uid[0])+","+str(uid[1])+","+str(uid[2])+","+str(uid[3])+","+str(uid[4])
 
             # This is the default key for authentication
             key = [0xFF,0xFF,0xFF,0xFF,0xFF,0xFF]
@@ -93,7 +94,7 @@ def read_first_block(start_reading):
                     logger.error('===== log-found: ===== %s', result)
                 except Exception as e:
                     print 'Exception :',e
-                    result = errors.ErrorReadFailedUnknow()
+                    result = errors.ErrorReadFailedUnknow().code
                     logger.error('===== log-write: ===== %s', result)
 
                 print 'The data after change:'
@@ -115,15 +116,26 @@ def read_first_block(start_reading):
             else:
                 print "Authentication error"
 
-            result = errors.ErrorAuthenticationErr()
+            result = errors.ErrorAuthenticationErr().code
             logger.error('===== log-write: ===== %s', result)
 
             # db.collection_card_num.drop()
             # u = dict(name=uid,chunk=1,num = de)
             # db.collection_card_num.insert(u)
-            l = db.card_s.find({'name':uid,'chunck':1},{'num':1,'_id':0})
-            str = l.get('num',0)
-            print str
+            l = db.card_s.find_one({'uid':uid,'chunk':1},{'num':1,'_id':0})
+            nnum = l.get('num',0)
+            '''uid_d = []
+            #for i in range(len(uid)):
+            #    uid_d.append(uid[i])
+            file = open('file.txt','a+')
+            buf = uid+[':']+nnum
+            print 'read:',file.tell()
+            try:
+                file.write(str(buf))
+            finally:
+                file.close()'''
+            print 'read.py:',uid
+            return uid+[ord(':')]+nnum
             start_reading = False
 
 

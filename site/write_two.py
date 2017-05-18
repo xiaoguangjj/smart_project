@@ -106,7 +106,10 @@ def deal_data_str(uid,set_data,data):
         try:
             if 16<len(set_data)<32:
                 for i in range(17,len(set_data)):
-                    data.append(ord(set_data[i].encode('utf-8')))
+                    if isinstance(set_data[i],bool):
+                        data.append(set_data[i])   
+                    else:
+                        data.append(ord(set_data[i].encode('utf-8')))
                 for i in range(len(set_data),33):
                     data.append(ord('*'))
                 print data
@@ -124,10 +127,10 @@ def deal_data_str(uid,set_data,data):
     result = WriteCard(data).func()
 
     #db.collection_card_num.drop()
-    u = dict(name=uid,chunk=2,num = data)
-    db.card_s.insert(u)
+    #u = dict(uid=uid,chunk=2,num = data)
+    #db.card_s.insert(u)
     #if db.card_s.find({'name' : uid},{'chunk' : 2}):
-    #    db.card_s.update({'name':uid},{'$set':{'num':data}})
+    db.card_s.update({'uid':uid,'chunk' : 2},{'$set':{'num':data}})
     #else:
     #    db.card_s.insert(u)
     return  result
@@ -149,26 +152,21 @@ def deal_data_list(set_data,data):
     elif len(set_data) < 16:
         for i in range(len(set_data)):
             data.append(ord(set_data[i].encode('utf-8')))
-        result = errors.ErrorDataShort()
+        result = errors.ErrorDataShort().code
         logger.debug('===== mss-error: ===== %s',result)
     else:
-        for i in range(16):
-            data.append(ord(set_data[i].encode('utf-8')))
-        if len(set_data)<32:
-            for i in range(17,(32 - len(set_data))):
-                data2.append(ord(set_data[i].encode('utf-8')))
-            for i in range(len(set_data),32):
-                data2.append(ord('*'))
-        elif len(set_data)==32:
-            for i in range(17,32):
-                data2.append(ord(set_data[i].encode('utf-8')))
-        else:
-            pass
+        for i in range(17,len(set_data)):
+            if isinstance(set_data[i],bool):
+                data.append(set_data[i])
+            else:
+                data.append(ord(set_data[i].encode('utf-8')))
+        for i in range(len(set_data),32):
+            data.append(ord('*'))
         result = errors.ErrorDataLong()
         logger.debug('===== mss-error: ===== %s',result)
     print "Now we fill it with 0x00:"
 
-    result = WriteCard(data,data2).func()
+    result = WriteCard(data).func()
     return  result
 
 """

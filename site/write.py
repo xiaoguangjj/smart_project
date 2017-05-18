@@ -53,11 +53,11 @@ class WriteCard(object):
             #print 'write'
         except IOError:
             print 'Can not find your card or your card is damaged.'
-            result = errors.ErrorWriteNotFind()
+            result = errors.ErrorWriteNotFind().code
             logger.error('===== mss-create: ===== %s',result)
         except Exception as e:
             print 'Exception :',e
-            result = errors.ErrorWriteFailedUnkown()
+            result = errors.ErrorWriteFailedUnkown().code
             logger.error('===== mss-create: ===== %s',result)
         print "It is now empty:"
             # Check to see if it was written
@@ -67,11 +67,11 @@ class WriteCard(object):
                 MIFAREReader.MFRC522_Read(8)
         except IOError:
             print 'Can not find your card or your card is damaged'
-            result = errors.ErrorReadNotFind()
+            result = errors.ErrorReadNotFind().code
             logger.error('===== mss-not-found: ===== %s',result)
         except Exception as e:
             print 'Exception :',e
-            result = errors.ErrorReadFailedUnknow()
+            result = errors.ErrorReadFailedUnknow().code
             logger.error('===== mss-not-found: ===== %s',result)
         #return result
 
@@ -106,7 +106,7 @@ def deal_data_utf(uid,set_data,data):
                 print j,i,type(j)
                 data.append(ord(j))
                 #print list(set_data)[i].encode('utf-8')
-        result = errors.ErrorzhcnErr()
+        result = errors.ErrorzhcnErr().code
         logger.error('===== mss-not-found: ===== %s',result)
     else:
         #print u'没有包含中文'
@@ -123,7 +123,7 @@ def deal_data_utf(uid,set_data,data):
                 data.append(ord(set_data[i].encode('utf-8')))
             for i in range(len(set_data),16):
                 data.append(ord('*'))
-            result = errors.ErrorDataShort()
+            result = errors.ErrorDataShort().code
         else:
             try:
                 for i in range(16):
@@ -131,18 +131,18 @@ def deal_data_utf(uid,set_data,data):
                 print data
             except AttributeError as e:
                 print 'Exception:',e
-            result = errors.ErrorDataLong()
+            result = errors.ErrorDataLong().code
             logger.error('===== mss-not-error: ===== %s',result)
     logger.info('===== log-write: ===== %s', data)
     print "Now we fill it with 0x00:"
 
     result = WriteCard(data).func()
 
-    db.card_s.drop()
-    u = dict(name=uid,chunk=1,num=data)
-    db.card_s.insert(u)
-    #if db.card_s.find({'name':uid},{'chunk':1}):
-    #    db.card_s.update({'name':uid},{'$set':{'num':data}})
+    #db.card_s.drop()
+    #u = dict(uid=uid,chunk=1,num=data)
+    #db.card_s.insert(u)
+    #if db.card_s.find({'uid':uid},{'chunk':1}):
+    db.card_s.update({'uid':uid,'chunk':1},{'$set':{'num':data}})
     #else:
     #    db.card_s.insert(u)
 
@@ -161,7 +161,9 @@ def deal_data_list(uid,set_data,data):
                 elif isinstance(set_data[i],str):
                     data.append(ord(set_data[i].encode('utf-8')))
                 elif isinstance(set_data[i],float):
-                    result = errors.ErrorDataLong()
+                    result = errors.ErrorDataLong().code
+                elif isinstance(set_data[i],bool):
+                    data.append(set_data[i])
                 else:
                     pass
         except AttributeError as e:
@@ -169,10 +171,13 @@ def deal_data_list(uid,set_data,data):
     elif len(set_data) < 16:
         for i in range(len(set_data)):
             data.append(ord(set_data[i].encode('utf-8')))
-        result = errors.ErrorDataShort()
+        result = errors.ErrorDataShort().code
     else:
         for i in range(16):
-            data.append(ord(set_data[i]))
+            if isinstance(set_data[i],bool):
+                data.append(set_data[i])
+            else:
+                data.append(ord(set_data[i]))
         '''if len(set_data)<32:
             for i in range(17,(32 - len(set_data))):
                 data2.append(ord(set_data[i].encode('utf-8')))
@@ -183,7 +188,7 @@ def deal_data_list(uid,set_data,data):
                 data2.append(ord(set_data[i].encode('utf-8')))
         else:
             pass'''
-        result = errors.ErrorDataLong()
+        result = errors.ErrorDataLong().code
         logger.debug('===== mss-data: ===== %s',result)
     print "Now we fill it with 0x00:"
 
@@ -233,7 +238,7 @@ def write_first_block(set_data,start_reading):
                 elif isinstance(set_data,list) or isinstance(set_data,tuple):
                     result = deal_data_list(uid,set_data,data)
                 else:
-                    result = errors.ErrorparamErr
+                    result = errors.ErrorparamErr().code
                     logger.debug('===== mss-not-found: ===== %s',result)
                 # Stop
                 MIFAREReader.MFRC522_StopCrypto1()
@@ -243,7 +248,7 @@ def write_first_block(set_data,start_reading):
 
             else:
                 print "Authentication error"
-                result = errors.ErrorAuthenticationErr()
+                result = errors.ErrorAuthenticationErr().code
                 logger.error('===== mss-auth-error: ===== %s',result)
 
-    #return result
+    return result

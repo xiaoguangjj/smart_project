@@ -13,11 +13,21 @@ result = read_two.read_second_block(True)
 result_two = result
 result = read.read_first_block(True)
 com_data = result+result_two
+print 'result:',result
+le = result.index(58)
 for i in range(len(com_data)):
-    if chr(com_data[i]) is not '*':
-        data.append(chr(com_data[i]))
+    if i < le:
+        data.append(com_data[i])
+    else:
+        if chr(com_data[i]) is not '*':
+            data.append(chr(com_data[i]))
 print 'result:',data
 
+file_object = open('file.txt','a+')
+try:
+    file_object.write(str(data)+'\n')
+finally:
+    file_object.close()
 print '读射频卡结果：',result
 
 

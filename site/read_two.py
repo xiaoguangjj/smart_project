@@ -9,6 +9,7 @@
 
 import signal
 import logging
+import os
 
 from pymongo import MongoClient
 
@@ -114,7 +115,16 @@ def read_second_block(start_reading):
             #db.collection_card_num.drop()
             # u = dict(name=uid,chunk=2,num = de)
             # db.collection_card_num.insert(u)
-
+            l = db.card_s.find_one({'uid':uid,'chunk':2},{'num':1,'_id':0})
+            nnum = l.get('num',0)
+			
+            '''file_object = open('file.txt','a+')
+            try:
+                file_object.write(str(nnum))
+            finally:
+                file_object.close()
+            '''
+            return nnum
             start_reading = False
 
 

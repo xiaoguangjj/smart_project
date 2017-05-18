@@ -25,48 +25,49 @@ class MyThread(threading.Thread):
 def test_interger():
     set_data = [1 for i in range(16)]
     result =  write.write_first_block(set_data,True)
-    print "The result of write into the card：%s " % result.code
+    print "The result of write into the card：%s " % result
 
 def test_int_ch():
     set_data = ['a','b','c','d',1,2,3,4,5,6,7,8,9,0,'a','b']
     result =  write.write_first_block(set_data,True)
-    print "The result of write into the card：%s " % result.code
+    print "The result of write into the card：%s " % result
 
 def test_float():
     set_data = ['a','b','c','d',1.00,2.00,3.00,4.00,5.0,6.0,7.0,8.0,9.0,0,'a','b']
     result =  write.write_first_block(set_data,True)
-    print "The result of write into the card：%s " % result.code
+    print "The result of write into the card：%s " % result
 
 def test_bool():
-    set_data = [True,False,True,False,True,False,True,False,True,False,True,False,True,False,True,False]
+    set_data = [True,False,True,False,True,False,True,False,True,False,True,False,True,False,True,False,True,True]
     result =  write.write_first_block(set_data,True)
-    print "The result of write into the card：%s " % result.code
+    result =  write_two.write_second_block(set_data,True)
+    print "The result of write into the card：%s " % result
 
 def test_dict():
     set_data = ('a','b','c','d',1.00,2.00,3.00,4.00,5.0,6.0,7.0,8.0,9.0,0,'a','b')
     result =  write.rfid_write_8(set_data,True)
-    print "The result of write into the card：%s " % result.code
+    print "The result of write into the card：%s " % result
 
 def test_character():
     set_data = u'cityio_001-00001'
     result =  write.write_first_block(set_data,True)
-    print "The result of write into the card：%s " % result.code
+    print "The result of write into the card：%s " % result
 
 def test_zhcn():
     set_data = u'趣活科技货物1'
     result =  write.write_first_block(set_data,True)
-    print "The result of write into the card：%s " % result.code
+    print "The result of write into the card：%s " % result
 
 def test_cityid():
     set_data = '5875d4dc2bf1d0ac79e05fb8'
     result =  write.write_first_block(set_data,True)
-    result =  write_two.rfid_write_12(set_data,True)
-    #print "The result of write into the card：%s " % result.code
+    result =  write_two.write_second_block(set_data,True)
+    #print "The result of write into the card：%s " % result
 
 def test_shortdata():
     set_data = '123456789'
     result =  write.write_first_block(set_data,True)
-    print "The result of write into the card：%s " % result.code
+    print "The result of write into the card：%s " % result
 
 funcs = [test_zhcn,test_interger,test_shortdata,test_cityid]
 
@@ -91,6 +92,7 @@ def main():
 if __name__=='__main__':
     #main()
     #test_zhcn()
-    #test_cityid()
-    test_dict()
-
+    test_cityid()
+    #test_dict()
+    #test_character()
+    #test_bool()

@@ -10,7 +10,7 @@ import RPi.GPIO as GPIO
 import time
 
 def buzz(buzztime):
-    buzztime = 5
+    #buzztime = 5
     GPIO_PIN = 23;
     GPIO.setmode(GPIO.BCM)
     GPIO.setup(GPIO_PIN,GPIO.OUT);

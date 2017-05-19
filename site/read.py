@@ -14,12 +14,14 @@ import os
 
 sys.path.append('/home/pi/project_rfid/smart_project/smart_project/vender')
 sys.path.append('/home/pi/project_rfid/smart_project/smart_project')
+sys.path.append('/home/pi/project_rfid/smart_project/smart_project/tools')
 
 from pymongo import MongoClient
 
 import RPi.GPIO as GPIO
 import MFRC522
 import errors
+import order_db
 
 logger = logging.getLogger(__name__)
 
@@ -122,8 +124,10 @@ def read_first_block(start_reading):
             # db.collection_card_num.drop()
             # u = dict(name=uid,chunk=1,num = de)
             # db.collection_card_num.insert(u)
-            l = db.card_s.find_one({'uid':uid,'chunk':1},{'num':1,'_id':0})
-            nnum = l.get('num',0)
+            l = order_db.Mongo_Op().find_db(db,uid,order)
+
+            #l = db.card_s.find_one({'uid':uid,'chunk':1},{'num':1,'_id':0})
+            #nnum = l.get('num',0)
             '''uid_d = []
             #for i in range(len(uid)):
             #    uid_d.append(uid[i])

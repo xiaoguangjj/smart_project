@@ -16,6 +16,7 @@ from pymongo import MongoClient
 import RPi.GPIO as GPIO
 from vender import MFRC522
 import errors
+
 logger = logging.getLogger(__name__)
 
 client = MongoClient('0.0.0.0',27017)

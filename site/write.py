@@ -11,7 +11,7 @@ import signal
 import sys
 import re
 import logging
-
+..
 from pymongo import MongoClient
 
 import sys
@@ -19,8 +19,11 @@ import RPi.GPIO as GPIO
 
 sys.path.append('/home/pi/project_rfid/smart_project/smart_project/vender')
 sys.path.append('/home/pi/project_rfid/smart_project/smart_project')
+sys.path.append('/home/pi/project_rfid/smart_project/smart_project/tools')
+
 import errors
 import MFRC522
+import order_db
 
 logger = logging.getLogger(__name__)
 
@@ -142,7 +145,8 @@ def deal_data_utf(uid,set_data,data):
     #u = dict(uid=uid,chunk=1,num=data)
     #db.card_s.insert(u)
     #if db.card_s.find({'uid':uid},{'chunk':1}):
-    db.card_s.update({'uid':uid,'chunk':1},{'$set':{'num':data}})
+    #db.card_s.update({'uid':uid,'chunk':1},{'$set':{'num':data}})
+    order_db.Mongo_Op('db_name','card_num').update_db(uid,1,data)
     #else:
     #    db.card_s.insert(u)
 
@@ -193,9 +197,10 @@ def deal_data_list(uid,set_data,data):
     print "Now we fill it with 0x00:"
 
     result = WriteCard(data).func()
-    db.card_s.drop()
-    u = dict(name=uid,chunk=1,num=data)
-    db.card_s.insert(u)
+    #db.card_s.drop()
+    #u = dict(name=uid,chunk=1,num=data)
+    #db.card_s.insert(u)
+
     return  result
 
 """
